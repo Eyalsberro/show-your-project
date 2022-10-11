@@ -1,0 +1,22 @@
+#err {
+    margin-top: 5px;
+    margin-bottom: 5px; 
+    color: red;
+}
+
+.btn {
+    margin-top: 10px;
+}
+
+.profileLinkInfo>p {
+    margin: 10px 0 0;
+}
+
+.profileGenralInfo>.MuiInput-input {
+    margin-bottom: 10px;
+}
+
+.positoninput{
+   margin-bottom: -10px;
+}
+

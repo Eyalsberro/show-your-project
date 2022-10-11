@@ -1,0 +1,90 @@
+.container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.profileImage {
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    box-shadow: 0 3px 5px 0 rgb(0 0 0 / 3%);
+    border-radius: 15px;
+}
+
+
+.profileImage>img {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 10px;
+    border-radius: 100px;
+    object-fit: cover;
+}
+
+.profileGenralInfo {
+    background: #fff;
+    box-shadow: 0 3px 5px 0 rgb(0 0 0 / 3%);
+    border-radius: 15px;
+    padding: 30px;
+    height: 100%;
+}
+
+.profileLinkInfo,
+.profileAboutme {
+    background: #fff;
+    box-shadow: 0 3px 5px 0 rgb(0 0 0 / 3%);
+    border-radius: 15px;
+    padding: 30px;
+    height: 100%;
+}
+
+.projectarea {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: center;
+    flex-direction: column;
+    background: #fff;
+    box-shadow: 0 3px 5px 0 rgb(0 0 0 / 3%);
+    border-radius: 15px;
+    padding: 30px;
+}
+
+
+.kaka {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.kaka>h2 {
+    margin-right: 30px;
+}
+
+.btn1 {
+    margin-left: 50px;
+    font-family: Roboto, sans-serif;
+    font-weight: 520;
+    font-size: 14px;
+    color: #fff;
+    background-color: #0066CC;
+    padding: 10px 40px;
+    border: 2px solid #0066cc;
+    box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+    border-radius: 11px;
+    transition: 1399ms;
+    transform: translateY(0);
+    text-transform: uppercase;
+}
+
+.btn1:hover {
+
+    transition: 1399ms;
+    padding: 10px 40px;
+    transform: translateY(-0px);
+    background-color: #fff;
+    color: #0066cc;
+    border: solid 2px #0066cc;
+}

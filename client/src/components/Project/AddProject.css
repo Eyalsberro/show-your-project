@@ -1,0 +1,31 @@
+.projectdiv {
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    box-shadow: 0 3px 5px 0 rgb(0 0 0 / 3%);
+    border-radius: 15px;
+}
+
+.inline{
+    display: flex;
+    align-items: flex-start;
+}
+
+.inline > h4 {
+    margin-right: 35px;
+}
+
+.projectdivabout{
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    box-shadow: 0 3px 5px 0 rgb(0 0 0 / 3%);
+    border-radius: 15px;
+}

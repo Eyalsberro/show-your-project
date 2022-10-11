@@ -1,0 +1,16 @@
+.header {
+    height: 10vh;
+    background-color: white;
+    border: 0.5px solid #dbdbdbb7;
+}
+
+.insideHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.logo{
+    cursor:pointer;
+}
