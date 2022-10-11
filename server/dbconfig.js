@@ -16,10 +16,11 @@ if (amazondb) {
 } else {
  
     con = mysql.createConnection({
-        host: "localhost",
+        host: "127.0.0.1",
         user: "root",
         password: "",
-        database: "showyourproject"
+        database: "showyourproject",
+        port: "3306"
     })
 }
 
