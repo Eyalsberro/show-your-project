@@ -95,6 +95,7 @@ export default function EditProfile({ profile, projectUser }) {
 
     const res = await fetch(`http://52.0.110.158/profile/pic/${localStorage.id}`, {
       method: "post",
+      headers: {mode: 'no-cors'},
       body: formData,
     })
     const data = await res.json()
@@ -252,39 +253,44 @@ export default function EditProfile({ profile, projectUser }) {
                   localStorage.name ? <button className='btn'>Update</button> : <></>
                 }
               </div>
-              <Card sx={{ maxWidth: 545 }}>
-                <CardHeader
-                  title={<b>{projectUser.title}</b>}
-                />
-                <CardContent>
-                  <Typography paragraph variant="subtitle1" color="text.secondary">
-                    {projectUser.about_the_project}
-                  </Typography>
-                </CardContent>
-                <Carousel interval="10000">
-                  <Carousel.Item>
-                    <img
-                      className="d-block w-100"
-                      src={projectUser.image}
-                      alt="First slide"
+              {
+                projectUser?.map(projecofuser =>
+
+                  <Card sx={{ maxWidth: 545 }}>
+                    <CardHeader
+                      title={<b>{projecofuser.title}</b>}
                     />
-                  </Carousel.Item>
-                  <Carousel.Item>
-                    <img
-                      className="d-block w-100"
-                      src={projectUser.image1}
-                      alt="Second slide"
-                    />
-                  </Carousel.Item>
-                  <Carousel.Item>
-                    <img
-                      className="d-block w-100"
-                      src={projectUser.image2}
-                      alt="Third slide"
-                    />
-                  </Carousel.Item>
-                </Carousel>
-              </Card>
+                    <CardContent>
+                      <Typography paragraph variant="subtitle1" color="text.secondary">
+                        {projecofuser.about_the_project}
+                      </Typography>
+                    </CardContent>
+                    <Carousel interval="10000">
+                      <Carousel.Item>
+                        <img
+                          className="d-block w-100"
+                          src={projecofuser.image}
+                          alt="First slide"
+                        />
+                      </Carousel.Item>
+                      <Carousel.Item>
+                        <img
+                          className="d-block w-100"
+                          src={projecofuser.image1}
+                          alt="Second slide"
+                        />
+                      </Carousel.Item>
+                      <Carousel.Item>
+                        <img
+                          className="d-block w-100"
+                          src={projecofuser.image2}
+                          alt="Third slide"
+                        />
+                      </Carousel.Item>
+                    </Carousel>
+                  </Card>
+                )
+              }
 
             </div>
           </Col>
