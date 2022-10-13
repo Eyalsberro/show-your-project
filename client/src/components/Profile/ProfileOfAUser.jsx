@@ -30,7 +30,7 @@ export default function ProfileOfAUser() {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`http://localhost:5000/profile/${localStorage.projectUid}`, {
+      const res = await fetch(`http://52.0.110.158/profile/${localStorage.projectUid}`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
         credentials: "include"
@@ -46,7 +46,7 @@ export default function ProfileOfAUser() {
     })();
 
     (async () => {
-      const res = await fetch(`http://localhost:5000/project/${localStorage.projectUid}`, {
+      const res = await fetch(`http://52.0.110.158/project/${localStorage.projectUid}`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
         credentials: "include"
@@ -72,9 +72,9 @@ export default function ProfileOfAUser() {
           <Col sm={4}>
             <div className='profileImg'>
               <img src={profile1.image} alt="profileimage" />
-            {
-              localStorage.name ? <button>Edit</button> : <></>
-            }
+              {
+                localStorage.name ? <button>Edit</button> : <></>
+              }
             </div>
           </Col>
           <Col sm={8}>

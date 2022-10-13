@@ -13,7 +13,7 @@ export default function Header() {
   }
 
   const logout = async () => {
-    const res = await fetch('http://localhost:5000/user/logout', {
+    const res = await fetch('http://52.0.110.158/user/logout', {
       method: "delete",
       credentials: "include"
     })
@@ -35,7 +35,7 @@ export default function Header() {
           localStorage.name ?
             <>
               <div>
-                <Button onClick={() => {goTo("profile"); window.location.reload();}} color="inherit">Profile</Button>
+                <Button onClick={() => { goTo("profile"); window.location.reload(); }} color="inherit">Profile</Button>
                 <Button onClick={() => goTo("add-project")} color="inherit">Add project</Button>
                 <Button onClick={logout} color="inherit">Logout</Button>
               </div>

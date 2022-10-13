@@ -53,7 +53,7 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
   const theLangu = JSON.parse(projectliked.languages)
 
   const unlike = async () => {
-    const res = await fetch('http://localhost:5000/project/dellike', {
+    const res = await fetch('http://52.0.110.158/project/dellike', {
       method: "delete",
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ user_id: localStorage.id, project_id: projectliked.projectid }),
@@ -70,7 +70,7 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`http://localhost:5000/project/comment/${projectliked.projectid}`, {
+      const res = await fetch(`http://52.0.110.158/project/comment/${projectliked.projectid}`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
         credentials: "include"
@@ -87,7 +87,7 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
 
 
   const PostAComment = async () => {
-    const res = await fetch(`http://localhost:5000/project/addcomment`, {
+    const res = await fetch(`http://52.0.110.158/project/addcomment`, {
       method: "POST",
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ postComment, user_id: localStorage.id, project_id: projectliked.projectid }),
@@ -106,7 +106,7 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
   };
 
   // const GiveLike = async () => {
-  //   const res = await fetch('http://localhost:5000/project/addlike', {
+  //   const res = await fetch('http://52.0.110.158/project/addlike', {
   //     method: "post",
   //     headers: { 'content-type': 'application/json' },
   //     body: JSON.stringify({ user_id: localStorage.id, project_id: project.projectid }),
@@ -223,7 +223,7 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
 
             <div className='commentsection'>
               <Avatar className='avatarcomment' src={profile.image} aria-label="nameofuser" />
-              
+
               <input
                 className='inputComment'
                 type="text"

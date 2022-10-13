@@ -45,7 +45,7 @@ export default function Register() {
 
 
   const register = async () => {
-    const res = await fetch('http://localhost:5000/user/register', {
+    const res = await fetch('http://52.0.110.158/user/register', {
       method: "post",
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ name, email, password, country, city, website, facebook, instagram, linkedin, github, position, aboutme }),

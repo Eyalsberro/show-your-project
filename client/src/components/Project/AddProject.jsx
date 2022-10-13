@@ -77,7 +77,7 @@ export default function AddProject() {
     formData.append('user_id', user_id)
 
 
-    const res = await fetch(`http://localhost:5000/project`, {
+    const res = await fetch(`http://52.0.110.158/project`, {
       // headers: { 'content-type': 'application/json' },
       method: "post",
       body: formData,
@@ -94,7 +94,7 @@ export default function AddProject() {
   }
   // const PostNewProject = async () => {
 
-  //   const res = await fetch(`http://localhost:5000/project`, {
+  //   const res = await fetch(`http://52.0.110.158/project`, {
   //     headers: { 'content-type': 'application/json' },
   //     method: "post",
   //     body: JSON.stringify({ title, about_the_project, project_link, languages, user_id }),

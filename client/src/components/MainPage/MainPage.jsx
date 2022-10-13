@@ -22,7 +22,7 @@ export default function MainPage({ profile }) {
   useEffect(() => {
     if (localStorage.id) {
       (async () => {
-        const res = await fetch(`http://localhost:5000/project/projectliked/${currUserId}`, {
+        const res = await fetch(`http://52.0.110.158/project/projectliked/${currUserId}`, {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
           credentials: "include"
@@ -37,7 +37,7 @@ export default function MainPage({ profile }) {
       })();
 
       (async () => {
-        const res = await fetch(`http://localhost:5000/project/projectunliked/${currUserId}`, {
+        const res = await fetch(`http://52.0.110.158/project/projectunliked/${currUserId}`, {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
           credentials: "include"
@@ -52,7 +52,7 @@ export default function MainPage({ profile }) {
       })();
 
       (async () => {
-        const res = await fetch('http://localhost:5000/project/projectnotlike', {
+        const res = await fetch('http://52.0.110.158/project/projectnotlike', {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
           credentials: "include"
@@ -68,7 +68,7 @@ export default function MainPage({ profile }) {
     } else {
 
       (async () => {
-        const res = await fetch(`http://localhost:5000/project`, {
+        const res = await fetch(`http://52.0.110.158/project`, {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
           credentials: "include"
@@ -85,7 +85,7 @@ export default function MainPage({ profile }) {
 
 
       (async () => {
-        const res = await fetch('http://localhost:5000/project/projectnotlike', {
+        const res = await fetch('http://52.0.110.158/project/projectnotlike', {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
           credentials: "include"

@@ -37,7 +37,7 @@ export default function Profile() {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`http://localhost:5000/profile/${userid}`, {
+      const res = await fetch(`http://52.0.110.158/profile/${userid}`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
         credentials: "include"
@@ -51,7 +51,7 @@ export default function Profile() {
     })();
 
     (async () => {
-      const res = await fetch(`http://localhost:5000/project/${userid}`, {
+      const res = await fetch(`http://52.0.110.158/project/${userid}`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
         credentials: "include"

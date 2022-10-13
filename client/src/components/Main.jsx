@@ -18,12 +18,12 @@ export default function Main() {
   const [projectUser, setProjectUser] = useState([])
   const [userid, setUserid] = useState(localStorage.id ? localStorage.id : localStorage.projectUid)
 
-  
+
 
   useEffect(() => {
     if (localStorage.id) {
       (async () => {
-        const res = await fetch(`http://localhost:5000/profile/${userid}`, {
+        const res = await fetch(`http://52.0.110.158/profile/${userid}`, {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
           credentials: "include"
@@ -36,9 +36,9 @@ export default function Main() {
           setProfile(data[0])
         }
       })();
-  
+
       (async () => {
-        const res = await fetch(`http://localhost:5000/project/${userid}`, {
+        const res = await fetch(`http://52.0.110.158/project/${userid}`, {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
           credentials: "include"
@@ -60,7 +60,7 @@ export default function Main() {
   return (
     <div>
       <Routes>
-        <Route path='/' element={<MainPage profile={profile}/>} />
+        <Route path='/' element={<MainPage profile={profile} />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/profileOfTheUser' element={<ProfileOfAUser />} />
         <Route path='/login' element={<Login />} />

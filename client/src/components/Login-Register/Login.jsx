@@ -11,40 +11,40 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState } from 'react';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const theme = createTheme();
 
 export default function Login() {
 
-    const navigate = useNavigate()
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    
- 
+  const navigate = useNavigate()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
-    const LoginUser = async (event) => {
-        event.preventDefault();
-        const res = await fetch('http://localhost:5000/user/login', {
-            method: "post",
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ email, password }),
-            credentials: "include"
-        })
-        const data = await res.json()
 
-        if (data.err) {
-            document.getElementById("err").innerHTML = data.err
 
-        } else {
-            localStorage.name = data.name
-            localStorage.id = data.userid
-            navigate('/profile')
-            window.location.reload()
-        }
+  const LoginUser = async (event) => {
+    event.preventDefault();
+    const res = await fetch('http://52.0.110.158/user/login', {
+      method: "post",
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+      credentials: "include"
+    })
+    const data = await res.json()
 
+    if (data.err) {
+      document.getElementById("err").innerHTML = data.err
+
+    } else {
+      localStorage.name = data.name
+      localStorage.id = data.userid
+      navigate('/profile')
+      window.location.reload()
     }
+
+  }
 
 
   return (
@@ -102,7 +102,7 @@ export default function Login() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                value={password} 
+                value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <span id="err"></span>
@@ -130,7 +130,7 @@ export default function Login() {
                   </Link>
                 </Grid>
               </Grid>
-              
+
             </Box>
           </Box>
         </Grid>
@@ -164,7 +164,7 @@ export default function Login() {
 
 
 //     const LoginUser = async () => {
-//         const res = await fetch('http://localhost:5000/user/login', {
+//         const res = await fetch('http://52.0.110.158/user/login', {
 //             method: "post",
 //             headers: { 'content-type': 'application/json' },
 //             body: JSON.stringify({ name, password }),

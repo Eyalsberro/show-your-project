@@ -236,12 +236,14 @@ router.post('/', upload.single('image'), async (req, res) => {
         console.log(projectnum.insertId);
 
         console.log(req.file && req.file.filename)
-        let imagesrc = 'http://127.0.0.1:5000/images/' + req.file && req.file.filename
+        let imagesrc = 'http://52.0.110.158/images/' + req.file && req.file.filename
+        // let imagesrc = 'http://127.0.0.1:5000/images/' + req.file && req.file.filename
 
         // await SQL(`INSERT into project(image)
         // VALUES('${imgsrc}') `)
 
-        await SQL(`UPDATE project SET image = '${'http://127.0.0.1:5000/images/' + imagesrc}' WHERE projectid = ${projectnum.insertId}`)
+        await SQL(`UPDATE project SET image = '${'http://52.0.110.158/images/' + imagesrc}' WHERE projectid = ${projectnum.insertId}`)
+        // await SQL(`UPDATE project SET image = '${'http://127.0.0.1:5000/images/' + imagesrc}' WHERE projectid = ${projectnum.insertId}`)
 
         res.send({ msg: "You add a new project" })
 

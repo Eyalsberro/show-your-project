@@ -51,7 +51,7 @@ export default function ProjectCard({ projectunliked, setUpdate, profile }) {
   const theLangu = JSON.parse(projectunliked.languages)
 
   const GiveLike = async () => {
-    const res = await fetch('http://localhost:5000/project/addlike', {
+    const res = await fetch('http://52.0.110.158/project/addlike', {
       method: "post",
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ user_id: localStorage.id, project_id: projectunliked.projectid }),
@@ -74,7 +74,7 @@ export default function ProjectCard({ projectunliked, setUpdate, profile }) {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`http://localhost:5000/project/comment/${projectunliked.projectid}`, {
+      const res = await fetch(`http://52.0.110.158/project/comment/${projectunliked.projectid}`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
         credentials: "include"
@@ -91,7 +91,7 @@ export default function ProjectCard({ projectunliked, setUpdate, profile }) {
 
 
   const PostAComment = async () => {
-    const res = await fetch(`http://localhost:5000/project/addcomment`, {
+    const res = await fetch(`http://52.0.110.158/project/addcomment`, {
       method: "POST",
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ postComment, user_id: localStorage.id, project_id: projectunliked.projectid }),
