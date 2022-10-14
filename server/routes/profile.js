@@ -2,6 +2,27 @@ const { SQL } = require('../dbconfig');
 const { loggedUser } = require('../helper/loggedUser');
 const router = require('express').Router()
 const multer = require('multer')
+const { S3Client, PutObjectCommand, GetObjectCommand } = require("@aws-sdk/client-s3");
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+const crypto = require('crypto')
+const dotenv = require('dotenv')
+
+dotenv.config()
+
+const randonImageName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex')
+
+const bucketName = process.env.AWS_BUCKET_NAME
+const region = process.env.AWS_BUCKET_REGION
+const accessKeyId = process.env.AWS_ACCESS_KEY
+const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY
+
+const s3Client = new S3Client({
+    region,
+    credentials: {
+        accessKeyId,
+        secretAccessKey
+    }
+});
 
 // GET INFO OF USER (for profile)
 router.get('/:user_id', async (req, res) => {
@@ -10,9 +31,19 @@ router.get('/:user_id', async (req, res) => {
         const useraddress = await SQL(`SELECT userid,name,email,country,city,website,facebook,instagram,linkedin,github,position,aboutme,image 
         FROM users
         WHERE userid = ${req.params.user_id}`)
+
+        const getObjectParams = { 
+            Bucket: bucketName,
+            Key: useraddress[0].image
+        }
         
-        res.send(useraddress) 
-        
+        const command = new GetObjectCommand(getObjectParams);
+        const url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+
+        useraddress[0].image = url
+
+        res.send(useraddress)
+
     } catch (err) {
         console.log(err);
         return res.sendStatus(500)
@@ -80,22 +111,25 @@ router.put('/aboutme/:user_id', async (req, res) => {
 
 
 //////// Use of Multer ////////////////////
-let storage = multer.diskStorage({
-    destination: (req, file, callBack) => {
-        callBack(null, './public/images/')
-    },
-    filename: (req, file, callBack) => {
-        console.log(file);
-        const mimeExtension = {
-            'image/jpeg': '.jpeg',
-            'image/jpg': '.jpg',
-            'image/png': '.png',
-            'image/gif': '.gif',
-        }
-        // callBack(null, file.fieldname + '-' + Date.now() + mimeExtension[file.mimetype])
-        callBack(null, file.originalname)
-    }
-})
+// let storage = multer.diskStorage({
+//     destination: (req, file, callBack) => {
+//         callBack(null, './public/images/')
+//     },
+//     filename: (req, file, callBack) => {
+//         console.log(file);
+//         const mimeExtension = {
+//             'image/jpeg': '.jpeg',
+//             'image/jpg': '.jpg',
+//             'image/png': '.png',
+//             'image/gif': '.gif',
+//         }
+//         // callBack(null, file.fieldname + '-' + Date.now() + mimeExtension[file.mimetype])
+//         callBack(null, file.originalname)
+//     }
+// })
+
+let storage = multer.memoryStorage()
+
 
 let upload = multer({
     storage: storage,
@@ -117,16 +151,28 @@ let upload = multer({
 router.post('/pic/:user_id', upload.single('image'), async (req, res) => {
 
     try {
-        console.log(req.file.filename);
-        let imgsrc = 'http://127.0.0.1:5000/images/' + req.file.filename
 
-        await SQL(`UPDATE users SET image = '${imgsrc}' WHERE userid = ${req.params.user_id}`)
-        
+        const imageName = randonImageName() + req.file.originalname
+
+        const params = {
+            Bucket: bucketName,
+            Key: imageName,
+            Body: req.file.buffer,
+            contentType: req.file.mimetype,
+        }
+
+        const command = new PutObjectCommand(params)
+
+        await s3Client.send(command)
+
+
+        await SQL(`UPDATE users SET image = '${imageName}' WHERE userid = ${req.params.user_id}`)
+
         res.send({ msg: "You update the profile picture" })
 
     } catch (err) {
         console.log(err);
-        return res.sendStatus(500)
+        return res.send(500).send("Image type not support")
     }
 
 })
