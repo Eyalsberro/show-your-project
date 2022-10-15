@@ -1,7 +1,30 @@
 const { SQL } = require('../dbconfig')
 const router = require('express').Router()
 const multer = require('multer')
+const { S3Client, PutObjectCommand, GetObjectCommand } = require("@aws-sdk/client-s3");
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+const crypto = require('crypto')
 
+
+const dotenv = require('dotenv')
+
+dotenv.config()
+
+const randonImageName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex')
+
+
+const bucketName = process.env.AWS_BUCKET_NAME
+const region = process.env.AWS_BUCKET_REGION
+const accessKeyId = process.env.AWS_ACCESS_KEY
+const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY
+
+const s3Client = new S3Client({
+    region,
+    credentials: {
+        accessKeyId,
+        secretAccessKey
+    }
+});
 
 
 
@@ -10,7 +33,7 @@ const multer = require('multer')
 router.get('/', async (req, res) => {
 
     try {
-        const project = await SQL(`SELECT 
+        const projects = await SQL(`SELECT 
             project.*,
             users.name,
             users.image AS profileimage,
@@ -23,19 +46,25 @@ router.get('/', async (req, res) => {
             likeapost ON likeapost.project_id = projectid
         GROUP BY projectid`)
 
-        // const projectnotlike = await SQL(`SELECT project.*, users.name
-        // FROM project
-        // INNER JOIN users ON project.user_id = users.userid
-        // WHERE NOT EXISTS(
-        // SELECT NULL
-        // FROM likeapost
-        // WHERE likeapost.project_id = project.projectid
-        // )`)
+        for (const project of projects) {
 
+            const getObjectParams = {
+                Bucket: bucketName,
+                Key: project.profileimage
+            }
+            const command = new GetObjectCommand(getObjectParams);
+            const url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+            project.profileimage = url
 
-        // const project = await SQL(`SELECT project.*, users.name 
-        // FROM project
-        // inner join users on project.user_id = users.userid`)
+            const getObjectParams1 = {
+                Bucket: bucketName,
+                Key: project.image
+            }
+            const command1 = new GetObjectCommand(getObjectParams1);
+            const url1 = await getSignedUrl(s3Client, command1, { expiresIn: 3600 });
+            project.image = url1
+
+        }
 
         res.status(200).send(project)
 
@@ -45,7 +74,7 @@ router.get('/', async (req, res) => {
     }
 
 });
- 
+
 // Get all projects liked by user_id 
 router.get('/projectliked/:id', async (req, res) => {
     try {
@@ -68,6 +97,27 @@ router.get('/projectliked/:id', async (req, res) => {
                     project.projectid = likeapost.project_id
                         AND likeapost.user_id = ${id})
         GROUP BY project.projectid`)
+
+        for (const project of projectliked) {
+
+            const getObjectParams = {
+                Bucket: bucketName,
+                Key: project.profileimage
+            }
+            const command = new GetObjectCommand(getObjectParams);
+            const url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+            project.profileimage = url
+
+            const getObjectParams1 = {
+                Bucket: bucketName,
+                Key: project.image
+            }
+            const command1 = new GetObjectCommand(getObjectParams1);
+            const url1 = await getSignedUrl(s3Client, command1, { expiresIn: 3600 });
+            project.image = url1
+
+        }
+
         res.send(projectliked)
 
     } catch (err) {
@@ -75,7 +125,7 @@ router.get('/projectliked/:id', async (req, res) => {
         return res.sendStatus(500)
     }
 })
- 
+
 // Get all projects unliked by user_id 
 router.get('/projectunliked/:id', async (req, res) => {
     try {
@@ -102,6 +152,26 @@ router.get('/projectunliked/:id', async (req, res) => {
                         AND likeapost.user_id = ${id})
         GROUP BY project.projectid`)
 
+        for (const project of projectunliked) {
+
+            const getObjectParams = {
+                Bucket: bucketName,
+                Key: project.profileimage
+            }
+            const command = new GetObjectCommand(getObjectParams);
+            const url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+            project.profileimage = url
+
+            const getObjectParams1 = {
+                Bucket: bucketName,
+                Key: project.image
+            }
+            const command1 = new GetObjectCommand(getObjectParams1);
+            const url1 = await getSignedUrl(s3Client, command1, { expiresIn: 3600 });
+            project.image = url1
+
+        }
+
         res.send(projectunliked)
 
     } catch (err) {
@@ -109,7 +179,7 @@ router.get('/projectunliked/:id', async (req, res) => {
         return res.sendStatus(500)
     }
 })
-  
+
 // GET ALL THE not LIKE pROJECT///
 router.get('/projectnotlike', async (req, res) => {
 
@@ -123,6 +193,26 @@ router.get('/projectnotlike', async (req, res) => {
         FROM likeapost
         WHERE likeapost.project_id = project.projectid
         )`)
+
+        for (const project of projectnotlike) {
+
+            const getObjectParams = {
+                Bucket: bucketName,
+                Key: project.profileimage
+            }
+            const command = new GetObjectCommand(getObjectParams);
+            const url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+            project.profileimage = url
+
+            const getObjectParams1 = {
+                Bucket: bucketName,
+                Key: project.image
+            }
+            const command1 = new GetObjectCommand(getObjectParams1);
+            const url1 = await getSignedUrl(s3Client, command1, { expiresIn: 3600 });
+            project.image = url1
+
+        }
 
         res.status(200).send(projectnotlike)
 
@@ -143,13 +233,26 @@ router.get('/comment/:id', async (req, res) => {
         FROM comments 
         INNER JOIN
             users ON comments.user_id = users.userid WHERE project_id = ${id}`)
+
+        for (const theCommentImage of getcomment) {
+
+            const getObjectParams = {
+                Bucket: bucketName,
+                Key: theCommentImage.profileimage
+            }
+            const command = new GetObjectCommand(getObjectParams);
+            const url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+            theCommentImage.profileimage = url
+
+        }
+
         res.status(200).send(getcomment)
 
     } catch (err) {
         console.log(err);
         return res.sendStatus(500)
     }
- 
+
 });
 
 // GET A SPCIFIC PROJECT BY USER ID///
@@ -168,20 +271,8 @@ router.get('/:user_id', async (req, res) => {
 
 
 //////// Use of Multer ////////////////////
-let storage = multer.diskStorage({
-    destination: (req, file, callBack) => {
-        callBack(null, './public/images/')
-    },
-    filename: (req, file, callBack) => {
-        const mimeExtension = {
-            'image/jpeg': '.jpeg',
-            'image/jpg': '.jpg',
-            'image/png': '.png',
-            'image/gif': '.gif',
-        }
-        callBack(null, file.originalname)
-    }
-})
+
+let storage = multer.memoryStorage()
 
 let upload = multer({
     storage: storage,
@@ -236,14 +327,21 @@ router.post('/', upload.single('image'), async (req, res) => {
         console.log(projectnum.insertId);
 
         console.log(req.file && req.file.filename)
-        let imagesrc = 'http://52.0.110.158/images/' + req.file && req.file.filename
-        // let imagesrc = 'http://127.0.0.1:5000/images/' + req.file && req.file.filename
 
-        // await SQL(`INSERT into project(image)
-        // VALUES('${imgsrc}') `)
+        const imageName = randonImageName() + req.file.originalname
 
-        await SQL(`UPDATE project SET image = '${'http://52.0.110.158/images/' + imagesrc}' WHERE projectid = ${projectnum.insertId}`)
-        // await SQL(`UPDATE project SET image = '${'http://127.0.0.1:5000/images/' + imagesrc}' WHERE projectid = ${projectnum.insertId}`)
+        const params = {
+            Bucket: bucketName,
+            Key: imageName,
+            Body: req.file.buffer,
+            contentType: req.file.mimetype,
+        }
+
+        const command = new PutObjectCommand(params)
+
+        await s3Client.send(command)
+
+        await SQL(`UPDATE project SET image = '${imageName}' WHERE projectid = ${projectnum.insertId}`)
 
         res.send({ msg: "You add a new project" })
 
@@ -468,21 +566,3 @@ router.delete('/dellike', async (req, res) => {
 
 
 module.exports = router
-
-
-
-// router.put('imag/:projectid', async (req, res) => {
-
-//     try {
-//         const { image } = req.body
-
-//         await SQL(`UPDATE project SET image = '${image}' WHERE projectid = ${req.params.projectid} `)
-
-//         res.send({ msg: "You image the project" })
-
-//     } catch (err) {
-//         console.log(err);
-//         return res.sendStatus(500)
-//     }
-
-// })
