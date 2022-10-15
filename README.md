@@ -13,5 +13,7 @@ Backend built with:
 - Express
 - MySQL
 
+Storing the API in AWS and also the pictures in AWS S3.
+
 Frontend built with:
 - React
