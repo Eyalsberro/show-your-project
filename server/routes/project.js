@@ -259,8 +259,21 @@ router.get('/comment/:id', async (req, res) => {
 router.get('/:user_id', async (req, res) => {
 
     try {
-        const project = await SQL(`SELECT * FROM project WHERE user_id = ${req.params.user_id}`)
-        res.send(project)
+        const projects = await SQL(`SELECT * FROM project WHERE user_id = ${req.params.user_id}`)
+
+        for (const project of projects) {
+
+            const getObjectParams = {
+                Bucket: bucketName,
+                Key: project.image
+            }
+            const command = new GetObjectCommand(getObjectParams);
+            const url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
+            project.image = url
+
+        }
+
+        res.send(projects)
 
     } catch (err) {
         console.log(err);

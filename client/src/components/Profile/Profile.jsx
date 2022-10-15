@@ -61,13 +61,11 @@ export default function Profile() {
         alert(data.err)
       } else {
         setProjectUser(data)
-
       }
     })();
 
   }, [])
 
-  const pictures = [projectUser.image, projectUser.image1, projectUser.image2]
 
 
 
@@ -141,7 +139,7 @@ export default function Profile() {
                           alt="Slide Image"
                         />
                       </Carousel.Item>
-                      < Carousel.Item>
+                      {/* < Carousel.Item>
                         <img
                           className="d-block w-100"
                           src={projecofuser.image1 ? projecofuser.image1 : projecofuser.image}
@@ -154,7 +152,7 @@ export default function Profile() {
                           src={projecofuser.image2 ? projecofuser.image2 : projecofuser.image}
                           alt="Slide Image 2 "
                         />
-                      </Carousel.Item>
+                      </Carousel.Item> */}
 
                     </Carousel>
                   </Card>

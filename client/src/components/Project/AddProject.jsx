@@ -78,10 +78,9 @@ export default function AddProject() {
 
 
     const res = await fetch(`http://52.0.110.158/project`, {
-      // headers: { 'content-type': 'application/json' },
       method: "post",
+      headers: {mode: 'no-cors'},
       body: formData,
-      // credentials: "include"
     })
     const data = await res.json()
     if (data.err) {
@@ -92,23 +91,7 @@ export default function AddProject() {
     }
 
   }
-  // const PostNewProject = async () => {
 
-  //   const res = await fetch(`http://52.0.110.158/project`, {
-  //     headers: { 'content-type': 'application/json' },
-  //     method: "post",
-  //     body: JSON.stringify({ title, about_the_project, project_link, languages, user_id }),
-  //     credentials: "include"
-  //   })
-  //   const data = await res.json()
-  //   if (data.err) {
-  //     document.getElementById("err").innerHTML = data.err
-  //   } else {
-  //     console.log(data);
-  //     document.getElementById("err").innerHTML = data.msg
-  //   }
-
-  // }
 
   return (
     <div>
