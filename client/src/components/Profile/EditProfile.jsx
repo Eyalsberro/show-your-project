@@ -47,7 +47,7 @@ export default function EditProfile({ profile, projectUser }) {
     if (data.err) {
       alert(data.err)
     } else {
-
+      document.getElementById("succecd2").innerHTML = data.msg
       console.log(data);
 
     }
@@ -66,7 +66,7 @@ export default function EditProfile({ profile, projectUser }) {
       alert(data.err)
     } else {
       console.log(data);
-
+      document.getElementById("succecd1").innerHTML = data.msg
     }
 
   }
@@ -82,6 +82,7 @@ export default function EditProfile({ profile, projectUser }) {
     if (data.err) {
       alert(data.err)
     } else {
+      document.getElementById("succecd").innerHTML = data.msg
       console.log(data);
 
     }
@@ -95,7 +96,7 @@ export default function EditProfile({ profile, projectUser }) {
 
     const res = await fetch(`http://52.0.110.158/profile/pic/${localStorage.id}`, {
       method: "post",
-      headers: {mode: 'no-cors'},
+      headers:{'Access-Control-Allow-Origin':'*'},
       body: formData,
     })
     const data = await res.json()
@@ -168,7 +169,7 @@ export default function EditProfile({ profile, projectUser }) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               /></span>
-
+              <p id="succecd2"></p>
               <br />
               <button className='btn' onClick={UpdateGeneralInfo}>Update</button>
             </div>
@@ -221,6 +222,7 @@ export default function EditProfile({ profile, projectUser }) {
                 onChange={(e) => setInstagram(e.target.value)}
               />
               <br />
+              <p id="succecd1"></p>
               <button className='btn' onClick={UpdateSocial}>Update</button>
 
             </div>
@@ -236,6 +238,7 @@ export default function EditProfile({ profile, projectUser }) {
                 placeholder={profile.aboutme}
                 style={{ width: '100%' }}
               />
+              <p id="succecd"></p>
               <button className='btn' onClick={UpdateAboutMe}>Update</button>
 
             </div>
@@ -243,7 +246,7 @@ export default function EditProfile({ profile, projectUser }) {
         </Row>
       </Container>
 
-      <Container>
+      {/* <Container>
         <Row>
           <Col>
             <div className="projectarea">
@@ -295,7 +298,7 @@ export default function EditProfile({ profile, projectUser }) {
             </div>
           </Col>
         </Row>
-      </Container>
+      </Container> */}
     </div>
   )
 }

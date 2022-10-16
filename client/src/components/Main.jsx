@@ -17,6 +17,7 @@ export default function Main() {
   const [profile, setProfile] = useState([])
   const [projectUser, setProjectUser] = useState([])
   const [userid, setUserid] = useState(localStorage.id ? localStorage.id : localStorage.projectUid)
+  const [update, setUpdate] = useState(false)
 
 
 
@@ -34,6 +35,7 @@ export default function Main() {
         } else {
           console.log(data[0]);
           setProfile(data[0])
+          setUpdate(st => !st)
         }
       })();
 

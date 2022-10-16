@@ -173,7 +173,7 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
         </CardContent>
 
         <Carousel interval="10000">
-          {
+          {/* {
             projectPicture.map(image =>
               < Carousel.Item key={Math.random()}>
                 <img
@@ -184,8 +184,15 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
                 />
               </Carousel.Item>
             )
-          }
+          } */}
 
+          < Carousel.Item>
+            <img
+              className="d-block w-100"
+              src={projectliked.image}
+              alt="Slide Image"
+            />
+          </Carousel.Item>
         </Carousel>
 
         <CardActions className='iconsproject'>

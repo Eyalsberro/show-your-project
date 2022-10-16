@@ -1,8 +1,14 @@
-#err {
+#err, #succecd, #succecd1, #succecd2 {
     margin-top: 5px;
     margin-bottom: 5px; 
     color: red;
 }
+
+/* #succecd {
+    margin-top: 5px;
+    margin-bottom: 5px; 
+    color: red;
+} */
 
 .btn {
     margin-top: 10px;
