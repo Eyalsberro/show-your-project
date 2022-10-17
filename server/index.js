@@ -15,8 +15,7 @@ const port =  process.env.PORT || 8080
 
 
 app.use(cors({
-    origin:false,
-    // origin:"http://localhost:3000",
+    origin:"http://localhost:3000",
     methods:"GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
 }))
