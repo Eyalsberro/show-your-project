@@ -66,7 +66,7 @@ router.get('/', async (req, res) => {
 
         }
 
-        res.status(200).send(project)
+        res.status(200).send(projects)
 
     } catch (err) {
         console.log(err);
