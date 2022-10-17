@@ -96,7 +96,7 @@ export default function EditProfile({ profile, projectUser }) {
 
     const res = await fetch(`http://52.0.110.158/profile/pic/${localStorage.id}`, {
       method: "POST",
-      headers:{'Content-Type': 'multipart/form-data'},
+      headers:{'Content-Type': 'multipart/form-data','Access-Control-Allow-Origin':'*'},
       body: formData,
     })
     const data = await res.json()
