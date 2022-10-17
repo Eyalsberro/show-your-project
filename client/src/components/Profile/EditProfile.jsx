@@ -90,13 +90,13 @@ export default function EditProfile({ profile, projectUser }) {
   }
 
   const UpdateProfilePic = async (e) => {
-    // e.preventDefault()
+    e.preventDefault()
     let formData = new FormData()
     formData.append('image', imgsrc)
 
     const res = await fetch(`http://52.0.110.158/profile/pic/${localStorage.id}`, {
-      method: "post",
-      headers:{'Access-Control-Allow-Origin':'*'},
+      method: "POST",
+      headers:{'Content-Type': 'multipart/form-data'},
       body: formData,
     })
     const data = await res.json()
@@ -121,6 +121,7 @@ export default function EditProfile({ profile, projectUser }) {
               <Input
                 type='file'
                 name='image'
+                accept="image/*"
                 sx={{ width: '25ch' }}
                 onChange={(e) => setImgsrc(e.target.files[0])}
               />

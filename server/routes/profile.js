@@ -5,7 +5,9 @@ const multer = require('multer')
 const { S3Client, PutObjectCommand, GetObjectCommand } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 const crypto = require('crypto')
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
+const { headersHelp } = require('../helper/headersHelp');
+
 
 dotenv.config()
 
@@ -148,7 +150,7 @@ let upload = multer({
 });
 
 // EDIT picture PROFILE
-router.post('/pic/:user_id', upload.single('image'), async (req, res) => {
+router.post('/pic/:user_id', upload.single('image'),headersHelp, async (req, res) => {
 
     try {
 
