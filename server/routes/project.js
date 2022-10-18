@@ -546,7 +546,7 @@ router.post('/picture2/:projectid', upload.single('image'), async (req, res) => 
 
 
 // Upload 3 picures to a project /////////
-router.post('/pic/:projectid', upload.array('image',3), async (req, res) => {
+router.post('/pic/:id', upload.array('image',3), async (req, res) => {
 
     try {
 
