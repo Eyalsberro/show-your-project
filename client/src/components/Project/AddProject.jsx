@@ -45,7 +45,7 @@ function getStyles(name, languages, theme) {
 export default function AddProject() {
 
   // title, about_the_project, project_link
-  const [imagesrc, setImagesrc] = useState({})
+  const [imagesrc, setImagesrc] = useState([])
   const [title, setTitle] = useState("")
   const [project_link, setproject_link] = useState("https://")
   const [about_the_project, setabout_the_project] = useState("")
@@ -69,7 +69,10 @@ export default function AddProject() {
   const PostNewProject = async () => {
 
     let formData = new FormData()
-    formData.append('image', imagesrc)
+
+    for (const key of Object.keys(imagesrc)) {
+      formData.append('image', imagesrc[key])
+    }
     formData.append('title', title)
     formData.append('about_the_project', about_the_project)
     formData.append('project_link', project_link)
@@ -79,7 +82,7 @@ export default function AddProject() {
 
     const res = await fetch(`http://52.0.110.158/project`, {
       method: "post",
-      headers: {mode: 'no-cors'},
+      // headers: {mode: 'no-cors'},
       body: formData,
     })
     const data = await res.json()
@@ -180,8 +183,9 @@ export default function AddProject() {
                   <Input
                     type='file'
                     name='image'
+                    inputProps={{ multiple: true }}
                     sx={{ width: '25ch' }}
-                    onChange={(e) => setImagesrc(e.target.files[0])}
+                    onChange={(e) => setImagesrc(e.target.files)}
                   />
                   <button className='btn' onClick={PostNewProject}>Update</button>
                 </div>

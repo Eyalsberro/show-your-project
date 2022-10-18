@@ -60,9 +60,25 @@ router.get('/', async (req, res) => {
                 Bucket: bucketName,
                 Key: project.image
             }
-            const command1 = new GetObjectCommand(getObjectParams1);
-            const url1 = await getSignedUrl(s3Client, command1, { expiresIn: 3600 });
-            project.image = url1
+            if (project?.image) {
+                project.image = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams1), { expiresIn: 3600 });
+            }
+
+            const getObjectParams2 = {
+                Bucket: bucketName,
+                Key: project.image1
+            }
+            if (project?.image1) {
+                project.image1 = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams2), { expiresIn: 3600 });
+            }
+
+            const getObjectParams3 = {
+                Bucket: bucketName,
+                Key: project.image2
+            }
+            if (project?.image2) {
+                project.image2 = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams3), { expiresIn: 3600 });
+            }
 
         }
 
@@ -112,9 +128,25 @@ router.get('/projectliked/:id', async (req, res) => {
                 Bucket: bucketName,
                 Key: project.image
             }
-            const command1 = new GetObjectCommand(getObjectParams1);
-            const url1 = await getSignedUrl(s3Client, command1, { expiresIn: 3600 });
-            project.image = url1
+            if (project?.image) {
+                project.image = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams1), { expiresIn: 3600 });
+            }
+
+            const getObjectParams2 = {
+                Bucket: bucketName,
+                Key: project.image1
+            }
+            if (project?.image1) {
+                project.image1 = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams2), { expiresIn: 3600 });
+            }
+
+            const getObjectParams3 = {
+                Bucket: bucketName,
+                Key: project.image2
+            }
+            if (project?.image2) {
+                project.image2 = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams3), { expiresIn: 3600 });
+            }
 
         }
 
@@ -166,11 +198,28 @@ router.get('/projectunliked/:id', async (req, res) => {
                 Bucket: bucketName,
                 Key: project.image
             }
-            const command1 = new GetObjectCommand(getObjectParams1);
-            const url1 = await getSignedUrl(s3Client, command1, { expiresIn: 3600 });
-            project.image = url1
+            if (project?.image) {
+                project.image = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams1), { expiresIn: 3600 });
+            }
+
+            const getObjectParams2 = {
+                Bucket: bucketName,
+                Key: project.image1
+            }
+            if (project?.image1) {
+                project.image1 = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams2), { expiresIn: 3600 });
+            }
+
+            const getObjectParams3 = {
+                Bucket: bucketName,
+                Key: project.image2
+            }
+            if (project?.image2) {
+                project.image2 = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams3), { expiresIn: 3600 });
+            }
 
         }
+
 
         res.send(projectunliked)
 
@@ -200,17 +249,31 @@ router.get('/projectnotlike', async (req, res) => {
                 Bucket: bucketName,
                 Key: project.profileimage
             }
-            const command = new GetObjectCommand(getObjectParams);
-            const url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
-            project.profileimage = url
+            project.profileimage = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams), { expiresIn: 3600 });
 
             const getObjectParams1 = {
                 Bucket: bucketName,
                 Key: project.image
             }
-            const command1 = new GetObjectCommand(getObjectParams1);
-            const url1 = await getSignedUrl(s3Client, command1, { expiresIn: 3600 });
-            project.image = url1
+            if (project?.image) {
+                project.image = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams1), { expiresIn: 3600 });
+            }
+
+            const getObjectParams2 = {
+                Bucket: bucketName,
+                Key: project.image1
+            }
+            if (project?.image1) {
+                project.image1 = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams2), { expiresIn: 3600 });
+            }
+
+            const getObjectParams3 = {
+                Bucket: bucketName,
+                Key: project.image2
+            }
+            if (project?.image2) {
+                project.image2 = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams3), { expiresIn: 3600 });
+            }
 
         }
 
@@ -263,14 +326,29 @@ router.get('/:user_id', async (req, res) => {
 
         for (const project of projects) {
 
-            const getObjectParams = {
+            const getObjectParams1 = {
                 Bucket: bucketName,
                 Key: project.image
             }
-            const command = new GetObjectCommand(getObjectParams);
-            const url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
-            project.image = url
+            if (project?.image) {
+                project.image = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams1), { expiresIn: 3600 });
+            }
 
+            const getObjectParams2 = {
+                Bucket: bucketName,
+                Key: project.image1
+            }
+            if (project?.image1) {
+                project.image1 = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams2), { expiresIn: 3600 });
+            }
+
+            const getObjectParams3 = {
+                Bucket: bucketName,
+                Key: project.image2
+            }
+            if (project?.image2) {
+                project.image2 = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams3), { expiresIn: 3600 });
+            }
         }
 
         res.send(projects)
@@ -294,6 +372,8 @@ let upload = multer({
         if (file.mimetype === 'image/jpeg' ||
             file.mimetype === 'image/jpg' ||
             file.mimetype === 'image/png' ||
+            file.mimetype === 'image/svg' ||
+            file.mimetype === 'image/webp' ||
             file.mimetype === 'image/gif') {
             callBack(null, true);
         } else {
@@ -326,12 +406,8 @@ let upload = multer({
 
 
 // // POST A NEW PROJECT///
-router.post('/', upload.single('image'), async (req, res) => {
+router.post('/', upload.array('image', 3), async (req, res) => {
     try {
-
-        if (!req.file) {
-            console.log("You didnt upload a picture for your project");
-        }
 
         const { title, about_the_project, project_link, languages, user_id } = req.body
 
@@ -339,22 +415,32 @@ router.post('/', upload.single('image'), async (req, res) => {
         VALUES('${title}','${about_the_project}','${project_link}','${languages}',${user_id}) `)
         console.log(projectnum.insertId);
 
-        console.log(req.file && req.file.filename)
+        const files = req.files
 
-        const imageName = randonImageName() + req.file.originalname
+        const params = files.map((file) => {
+            return {
+                Bucket: bucketName,
+                Key: randonImageName() + file.originalname,
+                Body: file.buffer,
+                contentType: file.mimetype,
+            };
+        });
 
-        const params = {
-            Bucket: bucketName,
-            Key: imageName,
-            Body: req.file.buffer,
-            contentType: req.file.mimetype,
+        await Promise.all(
+            params.map((param) => s3Client.send(new PutObjectCommand(param)))
+        );
+
+
+        if (params[2]?.Key && params[1]?.Key) {
+            await SQL(`UPDATE project SET image = '${params[0].Key}' ,image1 = '${params[1].Key}' ,image2 = '${params[2].Key}' WHERE projectid = ${projectnum.insertId}`)
+            console.log("im params everthing");
+        } else if (params[1]?.Key) {
+            await SQL(`UPDATE project SET image = '${params[0].Key}' ,image1 = '${params[1].Key}' ,image2 = 'undefined' WHERE projectid = ${projectnum.insertId}`)
+            console.log("im params 1");
+        } else {
+            await SQL(`UPDATE project SET image = '${params[0].Key}' ,image1 = 'undefined' ,image2 = 'undefined' WHERE projectid = ${projectnum.insertId}`)
+            console.log("im parars 0");
         }
-
-        const command = new PutObjectCommand(params)
-
-        await s3Client.send(command)
-
-        await SQL(`UPDATE project SET image = '${imageName}' WHERE projectid = ${projectnum.insertId}`)
 
         res.send({ msg: "You add a new project" })
 
@@ -460,43 +546,31 @@ router.post('/picture2/:projectid', upload.single('image'), async (req, res) => 
 
 
 // Upload 3 picures to a project /////////
-router.post('/pic/:projectid', upload.array('image'), async (req, res) => {
+router.post('/pic/:projectid', upload.array('image',3), async (req, res) => {
 
     try {
 
-        let imgsrc = 'http://127.0.0.1:5000/images/' + req.files[0].filename
-        let imgsrc1 = 'http://127.0.0.1:5000/images/' + req.files[1].filename
-        let imgsrc2 = 'http://127.0.0.1:5000/images/' + req.files[2].filename
+        const files = req.files
 
-        await SQL(`UPDATE project SET image = '${imgsrc}',image1 = '${imgsrc1}' ,image2 = '${imgsrc2}' WHERE projectid = ${req.params.projectid}`)
+        const params = files.map((file) => {
+            return {
+                Bucket: bucketName,
+                Key: randonImageName() + file.originalname,
+                Body: file.buffer,
+            };
+        });
 
+        const results = await Promise.all(
+            params.map((param) => s3Client.send(new PutObjectCommand(param)))
+        );
 
-        // if (!req.files.filename === undefined) {
-        //     imgsrc = 'http://127.0.0.1:5000/images/' + req.files[0].filename
-        //     imgsrc1 = 'http://127.0.0.1:5000/images/' + req.files[1].filename
-        //     imgsrc2 = 'http://127.0.0.1:5000/images/' + req.files[2].filename
-        //     await SQL(`UPDATE project SET image = '${imgsrc}',image1 = '${imgsrc1}' ,image2 = '${imgsrc2}' WHERE projectid = ${req.params.projectid}`)
-        // } else {
-        //     imgsrc1 = null
-        //     imgsrc2 = null
-        //     await SQL(`UPDATE project SET image = '${imgsrc}',image1 = '${imgsrc1}' ,image2 = '${imgsrc2}' WHERE projectid = ${req.params.projectid}`)
+        console.log(params[0].Key, params[1].Key, params[2].Key);
+        console.log(results);
 
-        // }
-
-
-        // req.files.map((file) => {
-        //     let imgsrc = 'http://127.0.0.1:5000/images/' + file.filename
-        //     let imgsrc1 = 'http://127.0.0.1:5000/images/' + file[1].filename
-        //     // let imgsrc2 = 'http://127.0.0.1:5000/images/' + file[2].filename
-        //     // let imgsrc = 'http://127.0.0.1:5000/images/' + file.filename
-        //     // let imgsrc1 = 'http://127.0.0.1:5000/images/' + file.filename
-        //     // SQL(`UPDATE project SET image = '${imgsrc}'  WHERE projectid = ${req.params.projectid}`)
-        //     SQL(`UPDATE project SET image = '${imgsrc}',image1 = '${imgsrc1}' ,image2 = '${imgsrc}' WHERE projectid = ${req.params.projectid}`)
+        await SQL(`UPDATE project SET image = '${params[0].Key}',image1 = '${params[1].Key}' ,image2 = '${params[2].Key}' WHERE projectid = ${req.params.id}`)
 
 
-        // })
-        // res.send({ msg: "You update the project"})
-        res.send(req.files)
+        return res.json({ status: "success" });
 
     } catch (err) {
         console.log(err);
