@@ -19,6 +19,8 @@ import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import Chip from '@mui/material/Chip';
+
 
 import { styled } from '@mui/material/styles';
 import Collapse from '@mui/material/Collapse';
@@ -46,11 +48,11 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
 
   const GoToProfile = () => {
     localStorage.projectUid = projectliked.user_id
-    navigate('profileOfTheUser')
+    navigate(`profileOfTheUser/${projectliked.user_id}`)
   }
 
-  const projectPicture = [projectliked.image, projectliked.image1, projectliked.image2]
-  const theLangu = JSON.parse(projectliked.languages)
+  const projectPicture = [projectliked.image, projectliked.image1, projectliked.image2].filter((projimg => projimg !== ""))
+  const theLangu = JSON.parse(projectliked.languages).filter((lang => lang !== ""))
 
   const unlike = async () => {
     const res = await fetch('http://52.0.110.158/project/dellike', {
@@ -143,11 +145,7 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
           avatar={
             <Avatar src={projectliked.profileimage} aria-label="profileimage" onClick={GoToProfile} />
           }
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
+
           title={<b>{projectliked.title}</b>}
           subheader={`By: ${projectliked.name}`}
         />
@@ -155,25 +153,42 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
           <Typography paragraph variant="subtitle1" color="text.secondary">
             {projectliked.about_the_project}
           </Typography>
+          <div className="language">
+            <span>Language:
+
+              {
+                theLangu.map(lang =>
+                  <Chip key={lang} label={lang} />
+                )
+              }
+            </span>
+          </div>
+          <div className="language">
+            <span>Framework:
+
+              {
+                JSON.parse(projectliked.Framework).filter((lang => lang !== "")).map(lang =>
+                  <Chip key={lang} label={lang} />
+                )
+              }
+            </span>
+          </div>
+          <div className="language">
+            <span>Database:
+
+              {
+                JSON.parse(projectliked.databaseName).filter((lang => lang !== "")).map(lang =>
+                  <Chip key={lang} label={lang} />
+                )
+              }
+            </span>
+          </div>
+
           <a target="_blank" rel="noopener noreferrer" href={projectliked.project_link}>Link To Project</a>
-          {
 
-            theLangu.map(lang =>
-
-              <p key={Math.random()}>
-                {lang}
-              </p>
-            )
-          }
-          {/* <ul>
-              <li>{JSON.parse(project.languages)}</li>
-            </ul> */}
-
-          {/* <p>{JSON.parse(project.languages)}</p> */}
         </CardContent>
-
         <Carousel interval="10000">
-          {/* {
+          {
             projectPicture.map(image =>
               < Carousel.Item key={Math.random()}>
                 <img
@@ -184,16 +199,10 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
                 />
               </Carousel.Item>
             )
-          } */}
+          }
 
-          < Carousel.Item>
-            <img
-              className="d-block w-100"
-              src={projectliked.image}
-              alt="Slide Image"
-            />
-          </Carousel.Item>
         </Carousel>
+
 
         <CardActions className='iconsproject'>
           <FormControlLabel
@@ -259,35 +268,3 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
   )
 }
 
-
-
-// <Carousel interval="10000">
-//           <Carousel.Item>
-//             <img
-//               className="d-block w-100"
-//               src={project.image}
-//               alt="First slide"
-//             />
-//           </Carousel.Item>
-//           <Carousel.Item>
-//             {
-//               project.image1 === null ? style = { display: "none" } : <img
-//                 className="d-block w-100"
-//                 src={project.image1}
-//                 alt="Second slide"
-//               />
-//             }
-//             <img
-//               className="d-block w-100"
-//               src={project.image1}
-//               alt="Second slide"
-//             />
-//           </Carousel.Item>
-//           <Carousel.Item>
-//             <img
-//               className="d-block w-100"
-//               src={project.image2}
-//               alt="Third slide"
-//             />
-//           </Carousel.Item>
-//         </Carousel> 

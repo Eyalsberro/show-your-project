@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 
 
 //LOGIN CUSTOMER/ADMIN
-router.post('/login',async (req, res) => {
+router.post('/login', async (req, res) => {
 
     try {
         const { email, password } = req.body
@@ -33,7 +33,7 @@ router.post('/login',async (req, res) => {
         req.session.save();
         res.send(req.session)
 
-    } catch (err) {   
+    } catch (err) {
         console.log(err);
         return res.status(400).send({ err: "**wrong Name or/and password" })
     }
@@ -44,7 +44,7 @@ router.post('/login',async (req, res) => {
 //REGISTER CUSTOMER
 router.post('/register', async (req, res) => {
     try {
-        const { name, email, password, country, city, website, facebook,instagram,linkedin,github,position,aboutme} = req.body
+        const { name, email, password, country, city, website, facebook, instagram, linkedin, github, position, aboutme } = req.body
 
         if (!name) {
             return res.status(400).send({ err: "**Missing Name, all filed are required" })
@@ -73,7 +73,7 @@ router.post('/register', async (req, res) => {
         FROM users
         WHERE name  = '${name}'`)
 
-        if (usertaken.length != 0) {
+        if (usertaken.length !== 0) {
             return res.status(400).send({ err: "**Name already exist, Chosse anoter name" })
         }
 
@@ -81,7 +81,7 @@ router.post('/register', async (req, res) => {
         FROM users
         WHERE email = '${email}'`)
 
-        if (emailtaken.length != 0) {
+        if (emailtaken.length !== 0) {
             return res.status(400).send({ err: "**Email already existed" })
         }
 

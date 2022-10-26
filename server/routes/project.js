@@ -27,10 +27,23 @@ const s3Client = new S3Client({
 });
 
 
+// GET ALL THE PROJECTS OF DATABASE///
+router.get('/', async (req, res) => {
 
+    try {
+        const project = await SQL(`SELECT project.user_id, project.title From project`)
+
+        res.status(200).send(project)
+
+    } catch (err) {
+        console.log(err);
+        return res.sendStatus(500)
+    }
+
+});
 
 // GET ALL THE PROJECTS///
-router.get('/', async (req, res) => {
+router.get('/all', async (req, res) => {
 
     try {
         const projects = await SQL(`SELECT 
@@ -409,10 +422,10 @@ let upload = multer({
 router.post('/', upload.array('image', 3), async (req, res) => {
     try {
 
-        const { title, about_the_project, project_link, languages, user_id } = req.body
+        const { title, about_the_project, project_link, languages, databaseName, Framework, user_id } = req.body
 
-        const projectnum = await SQL(`INSERT into project(title,about_the_project,project_link,languages,user_id)
-        VALUES('${title}','${about_the_project}','${project_link}','${languages}',${user_id}) `)
+        const projectnum = await SQL(`INSERT into project(title,about_the_project,project_link,languages,databaseName,Framework,user_id)
+        VALUES('${title}','${about_the_project}','${project_link}','${languages}','${databaseName}','${Framework}',${user_id}) `)
         console.log(projectnum.insertId);
 
         const files = req.files
@@ -546,7 +559,7 @@ router.post('/picture2/:projectid', upload.single('image'), async (req, res) => 
 
 
 // Upload 3 picures to a project /////////
-router.post('/pic/:id', upload.array('image',3), async (req, res) => {
+router.post('/pic/:id', upload.array('image', 3), async (req, res) => {
 
     try {
 

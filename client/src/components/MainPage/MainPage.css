@@ -12,3 +12,11 @@
     margin-top: 50px;
     margin-bottom: 15px;
 }
+
+.project >h4 {
+    text-align: center;
+    
+}
+p {
+    color: #666666;
+}

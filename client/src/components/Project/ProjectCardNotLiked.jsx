@@ -20,6 +20,7 @@ import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import Chip from '@mui/material/Chip';
 
 import { styled } from '@mui/material/styles';
 import Collapse from '@mui/material/Collapse';
@@ -44,11 +45,11 @@ export default function ProjectCard({ projectunliked, setUpdate, profile }) {
 
   const GoToProfile = () => {
     localStorage.projectUid = projectunliked.user_id
-    navigate('profileOfTheUser')
+    navigate(`profileOfTheUser/${projectunliked.user_id}`)
   }
 
-  const projectPicture = [projectunliked.image, projectunliked.image1, projectunliked.image2]
-  const theLangu = JSON.parse(projectunliked.languages)
+  const projectPicture = [projectunliked.image, projectunliked.image1, projectunliked.image2].filter((projimg => projimg !== ""))
+  const theLangu = JSON.parse(projectunliked.languages).filter((lang => lang !== ""))
 
   const GiveLike = async () => {
     const res = await fetch('http://52.0.110.158/project/addlike', {
@@ -124,11 +125,7 @@ export default function ProjectCard({ projectunliked, setUpdate, profile }) {
           avatar={
             <Avatar src={projectunliked.profileimage} aria-label="profileimage" onClick={GoToProfile} />
           }
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
+
           title={<b>{projectunliked.title}</b>}
           subheader={`By: ${projectunliked.name}`}
         />
@@ -136,21 +133,38 @@ export default function ProjectCard({ projectunliked, setUpdate, profile }) {
           <Typography paragraph variant="subtitle1" color="text.secondary">
             {projectunliked.about_the_project}
           </Typography>
+          <div className="language">
+            <span>Language:
+
+              {
+                theLangu.map(lang =>
+                  <Chip key={lang} label={lang} />
+                )
+              }
+            </span>
+          </div>
+          <div className="language">
+            <span>Framework:
+
+              {
+                JSON.parse(projectunliked.Framework).filter((lang => lang !== "")).map(lang =>
+                  <Chip key={lang} label={lang} />
+                )
+              }
+            </span>
+          </div>
+          <div className="language">
+            <span>Database:
+
+              {
+                JSON.parse(projectunliked.databaseName).filter((lang => lang !== "")).map(lang =>
+                  <Chip key={lang} label={lang} />
+                )
+              }
+            </span>
+          </div>
+
           <a target="_blank" rel="noopener noreferrer" href={projectunliked.project_link}>Link To Project</a>
-          {
-
-            theLangu.map(lang =>
-
-              <p key={Math.random()}>
-                {lang}
-              </p>
-            )
-          }
-          {/* <ul>
-              <li>{JSON.parse(project.languages)}</li>
-            </ul> */}
-
-          {/* <p>{JSON.parse(project.languages)}</p> */}
         </CardContent>
 
         <Carousel interval="10000">

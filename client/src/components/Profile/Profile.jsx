@@ -72,7 +72,7 @@ export default function Profile() {
   return (
     <div>
       {
-        localStorage.name ? <button onClick={handleClickOpen} className='btn1'>Edit</button> : <></>
+        localStorage.name && <button onClick={handleClickOpen} className='btn1'>Edit My Profile</button>
       }
       <Container>
         <Row>

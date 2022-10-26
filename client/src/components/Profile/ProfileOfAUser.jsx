@@ -55,8 +55,7 @@ export default function ProfileOfAUser() {
       if (data.err) {
         alert(data.err)
       } else {
-        // console.log(data[0]);
-        setProjectUser1(data[0])
+        setProjectUser1(data)
 
       }
     })();
@@ -113,39 +112,45 @@ export default function ProfileOfAUser() {
           <Col>
             <div className="projectarea">
               <h2>My Projects</h2>
-              <Card sx={{ maxWidth: 545 }}>
-                <CardHeader
-                  title={<b>{projectUser1.title}</b>}
-                />
-                <CardContent>
-                  <Typography paragraph variant="subtitle1" color="text.secondary">
-                    {projectUser1.about_the_project}
-                  </Typography>
-                </CardContent>
-                <Carousel interval="10000">
-                  <Carousel.Item>
-                    <img
-                      className="d-block w-100"
-                      src={projectUser1.image}
-                      alt="First slide"
+              {
+                projectUser1.map(projecofuser =>
+                  <Card sx={{ maxWidth: 545 }} key={Math.random()}>
+                    <CardHeader
+                      title={<b>{projecofuser.title}</b>}
                     />
-                  </Carousel.Item>
-                  <Carousel.Item>
-                    <img
-                      className="d-block w-100"
-                      src={projectUser1.image1}
-                      alt="Second slide"
-                    />
-                  </Carousel.Item>
-                  <Carousel.Item>
-                    <img
-                      className="d-block w-100"
-                      src={projectUser1.image2}
-                      alt="Third slide"
-                    />
-                  </Carousel.Item>
-                </Carousel>
-              </Card>
+                    <CardContent>
+                      <Typography paragraph variant="subtitle1" color="text.secondary">
+                        {projecofuser.about_the_project}
+                      </Typography>
+                    </CardContent>
+                    <Carousel interval="10000">
+
+                      < Carousel.Item>
+                        <img
+                          className="d-block w-100"
+                          src={projecofuser.image}
+                          alt="Slide Image"
+                        />
+                      </Carousel.Item>
+                      < Carousel.Item>
+                        <img
+                          className="d-block w-100"
+                          src={projecofuser.image1 ? projecofuser.image1 : projecofuser.image}
+                          alt="Slide Image 1"
+                        />
+                      </Carousel.Item>
+                      < Carousel.Item>
+                        <img
+                          className="d-block w-100"
+                          src={projecofuser.image2 ? projecofuser.image2 : projecofuser.image}
+                          alt="Slide Image 2 "
+                        />
+                      </Carousel.Item>
+
+                    </Carousel>
+                  </Card>
+                )
+              }
 
             </div>
           </Col>

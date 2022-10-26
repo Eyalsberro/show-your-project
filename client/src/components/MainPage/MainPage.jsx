@@ -8,7 +8,6 @@ import { useState } from 'react'
 import ProjectCard from '../Project/ProjectCard'
 import ProjectCardNotLiked from '../Project/ProjectCardNotLiked'
 import ProjectCardNoOneLiked from '../Project/ProjectCardNoOneLiked'
-import Footer from '../Footer'
 
 export default function MainPage({ profile }) {
 
@@ -18,6 +17,8 @@ export default function MainPage({ profile }) {
   const [projects, setProjects] = useState([])
   const [update, setUpdate] = useState(false);
   const [currUserId, setCurrUserId] = useState(localStorage.id);
+  const [titleProject, setTitleProject] = useState([]);
+
 
   useEffect(() => {
     if (localStorage.id) {
@@ -68,7 +69,7 @@ export default function MainPage({ profile }) {
     } else {
 
       (async () => {
-        const res = await fetch(`http://52.0.110.158/project`, {
+        const res = await fetch(`http://52.0.110.158/project/all`, {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
           credentials: "include"
@@ -102,11 +103,31 @@ export default function MainPage({ profile }) {
 
   }, [update])
 
+  useEffect(() => {
+
+    (async () => {
+      const res = await fetch(`http://localhost:5000/project`, {
+        method: 'GET',
+        headers: { 'content-type': 'application/json' },
+        credentials: "include"
+      })
+      const data = await res.json();
+      if (data.err) {
+        alert(data.err)
+      } else {
+        console.log(data);
+        setTitleProject(data)
+
+      }
+    })();
+    
+  }, [])
+
   return (
     <div className='mainpage'>
       <Container>
         <Row>
-          <Col xs={10} className='project'>
+          <Col xs={9} className='project'>
             {
               localStorage.id ?
                 <>
@@ -132,10 +153,18 @@ export default function MainPage({ profile }) {
                 </>
             }
           </Col>
-          <Col xs={2} className='project'>The Titles of last project add</Col>
+          <Col xs={3} className='project'>
+            <h4>Last Projects Add</h4>
+            {
+              titleProject.map((pop) => (
+                <div key={pop.title}>
+                  <p>{pop.title}</p>
+                </div>
+              ))
+            }
+          </Col>
         </Row>
       </Container>
-      <Footer />
     </div>
   )
 }

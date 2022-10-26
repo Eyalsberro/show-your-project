@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useParams } from 'react-router-dom'
 import About from './About/About'
 import Login from './Login-Register/Login'
 import Register from './Login-Register/Register'
@@ -19,6 +19,7 @@ export default function Main() {
   const [userid, setUserid] = useState(localStorage.id ? localStorage.id : localStorage.projectUid)
   const [update, setUpdate] = useState(false)
 
+  let { userIdNum } = useParams();
 
 
   useEffect(() => {
@@ -64,7 +65,7 @@ export default function Main() {
       <Routes>
         <Route path='/' element={<MainPage profile={profile} />} />
         <Route path='/profile' element={<Profile />} />
-        <Route path='/profileOfTheUser' element={<ProfileOfAUser />} />
+        <Route path='/profileOfTheUser/:userIdNum' element={<ProfileOfAUser />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/add-project' element={<AddProject />} />

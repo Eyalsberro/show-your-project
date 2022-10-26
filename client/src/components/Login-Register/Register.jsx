@@ -4,8 +4,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import './Register.css'
 
 
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
@@ -41,7 +39,6 @@ export default function Register() {
   const [aboutme, setAboutme] = useState("")
 
   const [showPassword, setShowPassword] = useState(false)
-  // const positionSelect = ["Junior FullStack Developer", "Junior Backend", "Junior Frontend", "Junior UX" ]
 
 
   const register = async () => {
@@ -69,7 +66,7 @@ export default function Register() {
   return (
     <div>
 
-      <h1 className='title'>Sign Up</h1>
+      <h1 className='title'>Register</h1>
       <div className='register'>
 
 
@@ -126,12 +123,6 @@ export default function Register() {
             <div>
               <FormControl sx={{ m: 1, width: '30ch' }} variant="standard">
                 <InputLabel>Job Position</InputLabel>
-                {/* <Input
-                  type='text'
-                  placeholder='Junior Developer/UX/Product...'
-                  value={position}
-                  onChange={(e) => setPosition(e.target.value)}
-                /> */}
                 <Select
                   labelId="demo-simple-select-standard-label"
                   id="demo-simple-select-standard"
@@ -172,8 +163,6 @@ export default function Register() {
               </FormControl>
             </div>
           </Box>
-
-
         </div>
 
         <div className="registercard">
@@ -184,6 +173,7 @@ export default function Register() {
                 <Input
                   type='text'
                   value={website}
+                  placeholder='https://example.com'
                   onChange={(e) => setWebsite(e.target.value)}
                 />
               </FormControl>
@@ -196,6 +186,7 @@ export default function Register() {
                 <Input
                   type='text'
                   value={facebook}
+                  placeholder='https://www.facebook.com/'
                   onChange={(e) => setFacebook(e.target.value)}
                 />
               </FormControl>
@@ -208,6 +199,7 @@ export default function Register() {
                 <Input
                   type='text'
                   value={instagram}
+                  placeholder='https://www.instagram.com/'
                   onChange={(e) => setInstagram(e.target.value)}
                 />
               </FormControl>
@@ -220,6 +212,7 @@ export default function Register() {
                 <Input
                   type='text'
                   value={linkedin}
+                  placeholder='https://www.linkedin.com/in/'
                   onChange={(e) => setLinkedin(e.target.value)}
                 />
               </FormControl>
@@ -232,12 +225,14 @@ export default function Register() {
                 <Input
                   type='text'
                   value={github}
+                  placeholder='https://github.com/'
                   onChange={(e) => setGithub(e.target.value)}
                 />
               </FormControl>
             </div>
           </Box>
           <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+            <p>About Yourself:</p>
             <div>
               <FormControl sx={{ m: 1, width: '30ch' }} variant="standard">
                 <TextareaAutosize

@@ -1,0 +1,21 @@
+.about-page {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.about-us-cont {
+    width: 1000px;
+    height: 100%;
+    background-color: white;
+}
+
+.about-us-cont>h1 {
+    text-align: center;
+
+}
+
+.about-us-cont>p {
+    padding: 15px;
+
+}

@@ -55,3 +55,12 @@
     padding-right: 50%;
     margin-bottom: 5px;
 }
+
+span > .MuiChip-root {
+    margin-left: 5px;
+    
+}
+
+.language{
+    margin-top: 5px;
+}

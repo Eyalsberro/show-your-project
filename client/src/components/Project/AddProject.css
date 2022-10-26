@@ -1,23 +1,36 @@
+.newprojectpage{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.rowsection{
+    margin-bottom: 20px;
+}
+
 .projectdiv {
-    padding: 30px;
+    padding: 35px;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
     background: #fff;
     box-shadow: 0 3px 5px 0 rgb(0 0 0 / 3%);
     border-radius: 15px;
+    margin-right: 5px;
+}
+
+.languCoulum {
+    padding: 10px;
+    height: 100%;
+    text-align: center;
+    background: #fff;
+    box-shadow: 0 3px 5px 0 rgb(0 0 0 / 3%);
+    border-radius: 15px;
+    margin-left: 5px;
 }
 
 .inline{
-    display: flex;
-    align-items: flex-start;
+    margin-bottom: 20px;
 }
 
-.inline > h4 {
-    margin-right: 35px;
-}
+
 
 .projectdivabout{
     padding: 30px;
@@ -28,4 +41,9 @@
     background: #fff;
     box-shadow: 0 3px 5px 0 rgb(0 0 0 / 3%);
     border-radius: 15px;
+}
+
+.uploadProject{
+    display: flex;
+    justify-content: center;
 }

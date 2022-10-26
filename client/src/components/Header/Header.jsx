@@ -37,12 +37,14 @@ export default function Header() {
               <div>
                 <Button onClick={() => { goTo("profile"); window.location.reload(); }} color="inherit">Profile</Button>
                 <Button onClick={() => goTo("add-project")} color="inherit">Add project</Button>
+                <Button onClick={() => goTo("about-us")} color="inherit">About</Button>
                 <Button onClick={logout} color="inherit">Logout</Button>
               </div>
             </>
             :
             <>
               <div>
+                <Button onClick={() => goTo("about-us")} color="inherit">About</Button>
                 <Button onClick={() => goTo("login")} color="inherit">Login</Button>
                 <Button onClick={() => goTo("register")} color="inherit">Resiter</Button>
               </div>

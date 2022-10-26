@@ -1,28 +1,26 @@
 import React from 'react'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 export default function Footer() {
 
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
-  // const takeMe = (des) => {
-  //     navigate('/' + des)
-  // }
+  const takeMe = (des) => {
+    navigate('/' + des)
+  }
 
   return (
     <div className='footercomp'>
       <div className='footersection'>
         <div>
-          <a href="https://www.facebook.com/"><img className='iconsfooter' src="https://i.ibb.co/PMSRjRy/facebook.png" alt="facebook"></img></a>
-          <a href="https://www.facebook.com/"><img className='iconsfooter' src="https://i.ibb.co/5Gxv9cr/send.png" alt="facebook"></img></a>
-          <a href="https://www.facebook.com/"><img className='iconsfooter' src="https://i.ibb.co/BwSb2GG/instagram-1.png" alt="facebook"></img></a>
-          <a href="https://www.facebook.com/"><img className='iconsfooter' src="https://i.ibb.co/bXy2gs2/linkedin.png" alt="facebook"></img></a>
+          <a href="https://www.github.com/Eyalsberro" target='_blank'><FontAwesomeIcon icon="fa-brands fa-github" className='iconsfooter' /></a>
+          <a href="https://www.instagram.com/Eyalsberro" target='_blank'><FontAwesomeIcon icon="fa-brands fa-instagram" className='iconsfooter' /></a>
+          <a href="https://www.linkedin.com/in/eyalsberro" target='_blank'><FontAwesomeIcon icon="fa-brands fa-linkedin-in" className='iconsfooter' /></a>
         </div>
         <div className='linksfooter'>
-          <p>About Us</p>
-          {/* <p onClick={() => takeMe("contactus")}>צור קשר</p> */}
-          {/* <p>הצוות שלנו</p>
-          <p>אודות</p> */}
+          <p onClick={() => takeMe("about-us")}>About Us</p>
         </div>
       </div>
       <hr></hr>

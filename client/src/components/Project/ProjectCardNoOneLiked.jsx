@@ -9,17 +9,16 @@ import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
 import ShareIcon from '@mui/icons-material/Share';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import Chip from '@mui/material/Chip';
+import Tooltip from '@mui/material/Tooltip';
 
 import { styled } from '@mui/material/styles';
 import Collapse from '@mui/material/Collapse';
@@ -44,27 +43,29 @@ export default function ProjectCard({ project, setUpdate, profile }) {
 
   const GoToProfile = () => {
     localStorage.projectUid = project.user_id
-    navigate('profileOfTheUser')
+    navigate(`profileOfTheUser/${project.user_id}`)
   }
 
-  const projectPicture = [project.image, project.image1, project.image2]
-  const theLangu = JSON.parse(project.languages)
+  const projectPicture = [project.image, project.image1, project.image2].filter((projimg => projimg !== ""))
+  const theLangu = JSON.parse(project.languages).filter((lang => lang !== ""))
 
   const GiveLike = async () => {
-    const res = await fetch('http://52.0.110.158/project/addlike', {
-      method: "post",
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ user_id: localStorage.id, project_id: project.projectid }),
-      credentials: "include"
-    })
-    toggleChecked()
-    const data = await res.json()
-    if (data.err) {
-      alert(data.err)
-    } else {
-      setUpdate(up => !up)
+    if (localStorage.id) {
+      const res = await fetch('http://52.0.110.158/project/addlike', {
+        method: "post",
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ user_id: localStorage.id, project_id: project.projectid }),
+        credentials: "include"
+      })
+      toggleChecked()
+      const data = await res.json()
+      if (data.err) {
+        alert(data.err)
+      } else {
+        setUpdate(up => !up)
+      }
+      console.log(data);
     }
-    console.log(data);
 
   }
 
@@ -122,11 +123,7 @@ export default function ProjectCard({ project, setUpdate, profile }) {
           avatar={
             <Avatar src={project.profileimage} aria-label="profileimage" onClick={GoToProfile} />
           }
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
+
           title={<b>{project.title}</b>}
           subheader={`By: ${project.name}`}
         />
@@ -134,21 +131,38 @@ export default function ProjectCard({ project, setUpdate, profile }) {
           <Typography paragraph variant="subtitle1" color="text.secondary">
             {project.about_the_project}
           </Typography>
+          <div className="language">
+            <span>Language:
+
+              {
+                theLangu.map(lang =>
+                  <Chip key={lang} label={lang} />
+                )
+              }
+            </span>
+          </div>
+          <div className="language">
+            <span>Framework:
+
+              {
+                JSON.parse(project.Framework).filter((lang => lang !== "")).map(lang =>
+                  <Chip key={lang} label={lang} />
+                )
+              }
+            </span>
+          </div>
+          <div className="language">
+            <span>Database:
+
+              {
+                JSON.parse(project.databaseName).filter((lang => lang !== "")).map(lang =>
+                  <Chip key={lang} label={lang} />
+                )
+              }
+            </span>
+          </div>
+
           <a target="_blank" rel="noopener noreferrer" href={project.project_link}>Link To Project</a>
-          {
-
-            theLangu?.map(lang =>
-
-              <p key={Math.random()}>
-                {lang}
-              </p>
-            )
-          }
-          {/* <ul>
-              <li>{JSON.parse(project.languages)}</li>
-            </ul> */}
-
-          {/* <p>{JSON.parse(project.languages)}</p> */}
         </CardContent>
 
         <Carousel interval="10000">
@@ -168,14 +182,29 @@ export default function ProjectCard({ project, setUpdate, profile }) {
         </Carousel>
 
         <CardActions className='iconsproject'>
-          <FormControlLabel
-            className='iconbtn'
-            label={project.LikesToPorject}
-            onChange={GiveLike}
-            control={
-              <Checkbox checked={checked} inputProps={{ 'aria-label': 'controlled' }} icon={<ThumbUpOffAltIcon />} checkedIcon={<ThumbUpAltIcon />} />
-            }
-          />
+          {
+            localStorage.id ?
+              <FormControlLabel
+                className='iconbtn'
+                label={project.LikesToPorject}
+                onChange={GiveLike}
+                control={
+                  <Checkbox checked={checked} inputProps={{ 'aria-label': 'controlled' }} icon={<ThumbUpOffAltIcon />} checkedIcon={<ThumbUpAltIcon />} />
+                }
+              />
+              :
+              <Tooltip title="You Cant Like The Picture">
+
+                <FormControlLabel
+                  className='iconbtn'
+                  label={project.LikesToPorject}
+                  onChange={GiveLike}
+                  control={
+                    <Checkbox checked={checked} inputProps={{ 'aria-label': 'controlled' }} icon={<ThumbUpOffAltIcon />} checkedIcon={<ThumbUpAltIcon />} />
+                  }
+                />
+              </Tooltip>
+          }
 
 
           {/* <span className='iconbtn' onChange={handleChange}></span>
