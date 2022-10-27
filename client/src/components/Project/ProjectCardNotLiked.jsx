@@ -130,7 +130,7 @@ export default function ProjectCard({ projectunliked, setUpdate, profile }) {
           subheader={`By: ${projectunliked.name}`}
         />
         <CardContent>
-          <Typography paragraph variant="subtitle1" color="text.secondary">
+          <Typography paragraph variant="subtitle1" color="text.secondary" className='abouttheproject'>
             {projectunliked.about_the_project}
           </Typography>
           <div className="language">

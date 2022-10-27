@@ -24,7 +24,7 @@ export default function Footer() {
         </div>
       </div>
       <hr></hr>
-      <p className='rights'><a href='https://www.buymeacoffee.com/eyalsberro'>Support Me Here</a></p>
+      <p className='rights'><a href='https://www.buymeacoffee.com/eyalsberro' target='_blank'>Support Me Here</a></p>
       <p className='rights'> © 2022 Eyal Sberro </p>
     </div>
   )
