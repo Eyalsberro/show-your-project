@@ -8,6 +8,8 @@ Sign users can open a profile, upload projects, comment, and like projects.
 
 Unsigned users can only see projects and profiles.
 
+Link to the project: https://showyourproject.netlify.app
+
 Backend built with:
 - NodeJS
 - Express
