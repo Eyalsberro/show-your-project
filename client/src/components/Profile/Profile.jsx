@@ -71,10 +71,10 @@ export default function Profile() {
 
   return (
     <div>
-      {
-        localStorage.name && <button onClick={handleClickOpen} className='btn1'>Edit My Profile</button>
-      }
       <Container>
+        {
+          localStorage.name && <Row><Col sm={4}><button onClick={handleClickOpen} className='btn1'>Edit My Profile</button></Col></Row>
+        }
         <Row>
           <Col sm={4}>
             <div className='profileImage'>

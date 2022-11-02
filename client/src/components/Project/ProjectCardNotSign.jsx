@@ -9,73 +9,51 @@ import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
 import ShareIcon from '@mui/icons-material/Share';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Chip from '@mui/material/Chip';
+import Tooltip from '@mui/material/Tooltip';
 
 import { styled } from '@mui/material/styles';
 import Collapse from '@mui/material/Collapse';
 
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <button {...other} className='iconbtn'><ModeCommentOutlinedIcon /> Comment</button>;
-})(({ theme }) => ({
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
 
-export default function ProjectCard({ projectunliked, setUpdate, profile }) {
+export default function ProjectCardNotSign({ project }) {
 
   const navigate = useNavigate()
   const [checked, setChecked] = useState(false);
   const [comment, setComment] = useState([]);
-  const [postComment, setPostComment] = useState("");
   const [conmmentUpdate, setConmmentUpdate] = useState(false);
+  const [expanded, setExpanded] = React.useState(false);
 
+  const ExpandMore = styled((props) => {
+    const { expand, ...other } = props;
+    return <button {...other} className='iconbtn'><ModeCommentOutlinedIcon /> Comment {comment.length === 0 ? "" : comment.length}</button>;
+  })(({ theme }) => ({
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  }));
 
   const GoToProfile = () => {
-    localStorage.projectUid = projectunliked.user_id
-    navigate(`profileOfTheUser/${projectunliked.user_id}`)
+    localStorage.projectUid = project.user_id
+    navigate(`profileOfTheUser/${project.user_id}`)
   }
 
-  const projectPicture = [projectunliked.image, projectunliked.image1, projectunliked.image2].filter((projimg => projimg !== ""))
-  const theLangu = JSON.parse(projectunliked.languages).filter((lang => lang !== ""))
+  const projectPicture = [project.image, project.image1, project.image2].filter((projimg => projimg !== ""))
+  const theLangu = JSON.parse(project.languages).filter((lang => lang !== ""))
 
-  const GiveLike = async () => {
-    const res = await fetch('http://52.0.110.158/project/addlike', {
-      method: "post",
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ user_id: localStorage.id, project_id: projectunliked.projectid }),
-      credentials: "include"
-    })
-    toggleChecked()
-    const data = await res.json()
-    if (data.err) {
-      alert(data.err)
-    } else {
-      setUpdate(up => !up)
-    }
-    console.log(data);
 
-  }
-
-  const toggleChecked = () => {
-    setChecked(prev => !prev);
-  };
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`http://52.0.110.158/project/comment/${projectunliked.projectid}`, {
+      const res = await fetch(`http://52.0.110.158/project/comment/${project.projectid}`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
         credentials: "include"
@@ -84,38 +62,16 @@ export default function ProjectCard({ projectunliked, setUpdate, profile }) {
       if (data.err) {
         alert(data.err)
       } else {
-        console.log(data);
         setComment(data)
       }
     })();
   }, [conmmentUpdate])
 
 
-  const PostAComment = async () => {
-    const res = await fetch(`http://52.0.110.158/project/addcomment`, {
-      method: "POST",
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ postComment, user_id: localStorage.id, project_id: projectunliked.projectid }),
-      credentials: "include"
-    })
-    const data = await res.json()
-    console.log(data);
-    setConmmentUpdate(up => !up)
-  };
-
-  const handleKeypress = (e) => {
-    if (e.key === "Enter") {
-      PostAComment();
-      setPostComment("")
-    }
-  };
-
-  const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
 
   return (
     <div>
@@ -123,15 +79,15 @@ export default function ProjectCard({ projectunliked, setUpdate, profile }) {
       <Card sx={{ maxWidth: 545 }}>
         <CardHeader
           avatar={
-            <Avatar src={projectunliked.profileimage} aria-label="profileimage" onClick={GoToProfile} />
+            <Avatar className='profileimage' src={project.profileimage} aria-label="profileimage" onClick={GoToProfile} />
           }
 
-          title={<b>{projectunliked.title}</b>}
-          subheader={`By: ${projectunliked.name}`}
+          title={<b>{project.title}</b>}
+          subheader={`By: ${project.name}`}
         />
         <CardContent>
           <Typography paragraph variant="subtitle1" color="text.secondary" className='abouttheproject'>
-            {projectunliked.about_the_project}
+            {project.about_the_project}
           </Typography>
           <div className="language">
             <span>Language:
@@ -147,7 +103,7 @@ export default function ProjectCard({ projectunliked, setUpdate, profile }) {
             <span>Framework:
 
               {
-                JSON.parse(projectunliked.Framework).filter((lang => lang !== "")).map(lang =>
+                JSON.parse(project.Framework).filter((lang => lang !== "")).map(lang =>
                   <Chip key={lang} label={lang} />
                 )
               }
@@ -157,14 +113,14 @@ export default function ProjectCard({ projectunliked, setUpdate, profile }) {
             <span>Database:
 
               {
-                JSON.parse(projectunliked.databaseName).filter((lang => lang !== "")).map(lang =>
+                JSON.parse(project.databaseName).filter((lang => lang !== "")).map(lang =>
                   <Chip key={lang} label={lang} />
                 )
               }
             </span>
           </div>
 
-          <a target="_blank" rel="noopener noreferrer" href={projectunliked.project_link}>Link To Project</a>
+          <a target="_blank" rel="noopener noreferrer" href={project.project_link}>Link To Project</a>
         </CardContent>
 
         <Carousel interval="10000">
@@ -184,22 +140,17 @@ export default function ProjectCard({ projectunliked, setUpdate, profile }) {
         </Carousel>
 
         <CardActions className='iconsproject'>
-          <FormControlLabel
-            className='iconbtn'
-            label={projectunliked.LikesToPorject}
-            onChange={GiveLike}
-            control={
-              <Checkbox checked={checked} inputProps={{ 'aria-label': 'controlled' }} icon={<ThumbUpOffAltIcon />} checkedIcon={<ThumbUpAltIcon />} />
-            }
-          />
+          <Tooltip title="You Cant Like The Picture">
 
+            <FormControlLabel
+              className='iconbtn'
+              label={project.LikesToPorject}
+              control={
+                <Checkbox checked={checked} inputProps={{ 'aria-label': 'controlled' }} icon={<ThumbUpOffAltIcon />} checkedIcon={<ThumbUpAltIcon />} />
+              }
+            />
+          </Tooltip>
 
-          {/* <span className='iconbtn' onChange={handleChange}></span>
-          <Checkbox inputProps={{ 'aria-label': 'controlled' }} label="Call me" icon={<ThumbUpOffAltIcon />} checkedIcon={<ThumbUpAltIcon />} />  */}
-
-          {/* <button className='iconbtn' onChange={handleChange}>
-            <ThumbUpOffAltIcon /> Like
-          </button> */}
           <ExpandMore
             expand={expanded}
             onClick={handleExpandClick}
@@ -207,7 +158,6 @@ export default function ProjectCard({ projectunliked, setUpdate, profile }) {
             aria-label="show more"
           >
           </ExpandMore>
-
           <button className='iconbtn'><SendOutlinedIcon /> Send</button>
           <button className='iconbtn'><ShareIcon /> Share</button>
         </CardActions>
@@ -215,17 +165,6 @@ export default function ProjectCard({ projectunliked, setUpdate, profile }) {
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
 
-            <div className='commentsection'>
-              <Avatar className='avatarcomment' src={profile.image} aria-label="nameofuser" />
-
-              <input
-                className='inputComment'
-                type="text"
-                placeholder='Add a comment...'
-                value={postComment}
-                onChange={(e) => setPostComment(e.target.value)}
-                onKeyPress={handleKeypress} />
-            </div>
 
             {
               comment.map((comments) =>
@@ -240,6 +179,7 @@ export default function ProjectCard({ projectunliked, setUpdate, profile }) {
 
           </CardContent>
         </Collapse>
+
       </Card>
     </div>
   )

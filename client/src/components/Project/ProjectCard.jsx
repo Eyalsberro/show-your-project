@@ -27,24 +27,23 @@ import Collapse from '@mui/material/Collapse';
 
 
 
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <button {...other} className='iconbtn'><ModeCommentOutlinedIcon /> Comment</button>;
-})(({ theme }) => ({
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
 
 export default function ProjectCard({ projectliked, setUpdate, profile }) {
 
   const navigate = useNavigate()
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(false);
   const [comment, setComment] = useState([]);
   const [postComment, setPostComment] = useState("");
   const [conmmentUpdate, setConmmentUpdate] = useState(false);
 
-
+  const ExpandMore = styled((props) => {
+    const { expand, ...other } = props;
+    return <button {...other} className='iconbtn'><ModeCommentOutlinedIcon /> Comment {comment.length == 0 ? "" : comment.length}</button>;
+  })(({ theme }) => ({
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  }));
 
   const GoToProfile = () => {
     localStorage.projectUid = projectliked.user_id
@@ -54,15 +53,35 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
   const projectPicture = [projectliked.image, projectliked.image1, projectliked.image2].filter((projimg => projimg !== ""))
   const theLangu = JSON.parse(projectliked.languages).filter((lang => lang !== ""))
 
-  const unlike = async () => {
-    const res = await fetch('http://52.0.110.158/project/dellike', {
-      method: "delete",
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ user_id: localStorage.id, project_id: projectliked.projectid }),
-      credentials: "include"
-    })
-    toggleChecked()
-    setUpdate(up => !up)
+  const likeAndUnliked = async (e) => {
+    if (checked === false) {
+      const res = await fetch('http://52.0.110.158/project/addlike', {
+        method: "post",
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ user_id: localStorage.id, project_id: projectliked.projectid }),
+        credentials: "include"
+      })
+      const data = await res.json()
+      if (data.err) {
+        alert(data.err)
+      } else {
+        toggleChecked()
+        setUpdate(up => !up)
+      }
+
+    } else {
+
+      const res = await fetch('http://52.0.110.158/project/dellike', {
+        method: "delete",
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ user_id: localStorage.id, project_id: projectliked.projectid }),
+        credentials: "include"
+      })
+      const data = await res.json()
+      toggleChecked()
+      setUpdate(up => !up)
+    }
+
 
   }
 
@@ -81,7 +100,7 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
       if (data.err) {
         alert(data.err)
       } else {
-        console.log(data);
+        // console.log(data);
         setComment(data)
       }
     })();
@@ -107,28 +126,7 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
     }
   };
 
-  // const GiveLike = async () => {
-  //   const res = await fetch('http://52.0.110.158/project/addlike', {
-  //     method: "post",
-  //     headers: { 'content-type': 'application/json' },
-  //     body: JSON.stringify({ user_id: localStorage.id, project_id: project.projectid }),
-  //     credentials: "include"
-  //   })
-  //   const data = await res.json()
-  //   if (data.err) {
-  //     alert(data.err)
-  //   } else {
-  //     toggleChecked()
-  //     setUpdate(up => !up)
-  //   }
-  //   console.log(data);
 
-  // }
-
-
-  // const toggleChecked = () => {
-  //   setChecked(false);
-  // };
 
   const [expanded, setExpanded] = React.useState(false);
 
@@ -143,7 +141,7 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
       <Card sx={{ maxWidth: 545 }}>
         <CardHeader
           avatar={
-            <Avatar src={projectliked.profileimage} aria-label="profileimage" onClick={GoToProfile} />
+            <Avatar className='profileimage' src={projectliked.profileimage} aria-label="profileimage" onClick={GoToProfile} />
           }
 
           title={<b>{projectliked.title}</b>}
@@ -208,7 +206,7 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
           <FormControlLabel
             className='iconbtn'
             label={projectliked.LikesToPorject}
-            onChange={unlike}
+            onChange={likeAndUnliked}
             control={
               <Checkbox checked={checked} inputProps={{ 'aria-label': 'controlled' }} icon={<ThumbUpOffAltIcon />} checkedIcon={<ThumbUpAltIcon />} />
             }

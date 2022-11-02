@@ -42,22 +42,22 @@ router.get('/', async (req, res) => {
 
 });
 
-// GET ALL THE PROJECTS///
+// GET ALL THE PROJECTS FOR UNSIGN USERS///
 router.get('/all', async (req, res) => {
 
     try {
         const projects = await SQL(`SELECT 
-            project.*,
-            users.name,
-            users.image AS profileimage,
-            COUNT(likeapost.isLike) AS LikesToPorject
+        project.*,
+        users.name,
+        users.image AS profileimage,
+        COUNT(likeapost.project_id) AS LikesToPorject
         FROM
-            project
-                INNER JOIN
-            users ON project.user_id = users.userid
-                INNER JOIN
-            likeapost ON likeapost.project_id = projectid
-        GROUP BY projectid`)
+        project
+            LEFT JOIN
+        users ON project.user_id = users.userid
+            LEFT JOIN
+        likeapost ON likeapost.project_id = projectid
+        GROUP BY projectid `)
 
         for (const project of projects) {
 
@@ -104,28 +104,23 @@ router.get('/all', async (req, res) => {
 
 });
 
-// Get all projects liked by user_id 
+// GET ALL THE PROJECTS FOR SIGN USERS//
 router.get('/projectliked/:id', async (req, res) => {
     try {
         const { id } = req.params
 
         const projectliked = await SQL(`SELECT 
-            project.*,users.name, users.image AS profileimage, COUNT(likeapost.project_id) AS LikesToPorject
+        project.*,
+        users.name,
+        users.image AS profileimage,
+        COUNT(likeapost.project_id) AS LikesToPorject
         FROM
-            likeapost
-                LEFT JOIN
-            project ON likeapost.project_id = project.projectid
+        project
             LEFT JOIN
-            users ON project.user_id = users.userid
-        WHERE
-            EXISTS( SELECT 
-                    *
-                FROM
-                    likeapost
-                WHERE
-                    project.projectid = likeapost.project_id
-                        AND likeapost.user_id = ${id})
-        GROUP BY project.projectid`)
+        users ON project.user_id = users.userid
+            LEFT JOIN
+        likeapost ON likeapost.project_id = projectid
+        GROUP BY projectid `)
 
         for (const project of projectliked) {
 
@@ -171,135 +166,8 @@ router.get('/projectliked/:id', async (req, res) => {
     }
 })
 
-// Get all projects unliked by user_id 
-router.get('/projectunliked/:id', async (req, res) => {
-    try {
-        const { id } = req.params
 
-        const projectunliked = await SQL(`SELECT 
-            project.*,
-            users.name,
-            users.image AS profileimage,
-            COUNT(likeapost.project_id) AS LikesToPorject
-        FROM
-            likeapost
-                LEFT JOIN
-            project ON likeapost.project_id = project.projectid
-                LEFT JOIN
-            users ON project.user_id = users.userid
-        WHERE
-            NOT EXISTS( SELECT 
-                    *
-                FROM
-                    likeapost
-                WHERE
-                    project.projectid = likeapost.project_id
-                        AND likeapost.user_id = ${id})
-        GROUP BY project.projectid`)
-
-        for (const project of projectunliked) {
-
-            const getObjectParams = {
-                Bucket: bucketName,
-                Key: project.profileimage
-            }
-            const command = new GetObjectCommand(getObjectParams);
-            const url = await getSignedUrl(s3Client, command, { expiresIn: 3600 });
-            project.profileimage = url
-
-            const getObjectParams1 = {
-                Bucket: bucketName,
-                Key: project.image
-            }
-            if (project?.image) {
-                project.image = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams1), { expiresIn: 3600 });
-            }
-
-            const getObjectParams2 = {
-                Bucket: bucketName,
-                Key: project.image1
-            }
-            if (project?.image1) {
-                project.image1 = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams2), { expiresIn: 3600 });
-            }
-
-            const getObjectParams3 = {
-                Bucket: bucketName,
-                Key: project.image2
-            }
-            if (project?.image2) {
-                project.image2 = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams3), { expiresIn: 3600 });
-            }
-
-        }
-
-
-        res.send(projectunliked)
-
-    } catch (err) {
-        console.log(err);
-        return res.sendStatus(500)
-    }
-})
-
-// GET ALL THE not LIKE pROJECT///
-router.get('/projectnotlike', async (req, res) => {
-
-    try {
-
-        const projectnotlike = await SQL(`SELECT project.*, users.name,users.image AS profileimage
-        FROM project
-        INNER JOIN users ON project.user_id = users.userid
-        WHERE NOT EXISTS(
-        SELECT NULL
-        FROM likeapost
-        WHERE likeapost.project_id = project.projectid
-        )`)
-
-        for (const project of projectnotlike) {
-
-            const getObjectParams = {
-                Bucket: bucketName,
-                Key: project.profileimage
-            }
-            project.profileimage = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams), { expiresIn: 3600 });
-
-            const getObjectParams1 = {
-                Bucket: bucketName,
-                Key: project.image
-            }
-            if (project?.image) {
-                project.image = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams1), { expiresIn: 3600 });
-            }
-
-            const getObjectParams2 = {
-                Bucket: bucketName,
-                Key: project.image1
-            }
-            if (project?.image1) {
-                project.image1 = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams2), { expiresIn: 3600 });
-            }
-
-            const getObjectParams3 = {
-                Bucket: bucketName,
-                Key: project.image2
-            }
-            if (project?.image2) {
-                project.image2 = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams3), { expiresIn: 3600 });
-            }
-
-        }
-
-        res.status(200).send(projectnotlike)
-
-    } catch (err) {
-        console.log(err);
-        return res.sendStatus(500)
-    }
-
-});
-
-// Get comment
+// Get COMMENTS //
 router.get('/comment/:id', async (req, res) => {
 
     try {
@@ -633,6 +501,14 @@ router.delete('/delcomment', async (req, res) => {
 router.post('/addlike', async (req, res) => {
     try {
         const { user_id, project_id } = req.body
+
+        // const alreadyLike = await SQL(`SELECT * 
+        // FROM likeapost
+        // WHERE project_id = '${project_id}' AND user_id = '${user_id}'`)
+
+        // if (alreadyLike.length !== 0) {
+        //     return res.status(400).send({ err: "Cant like the project again" })
+        // }
 
         const addlike = await SQL(`INSERT into likeapost(user_id,project_id,isLike)
         VALUES (${user_id},${project_id},1)`)

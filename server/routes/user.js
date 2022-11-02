@@ -87,7 +87,7 @@ router.post('/register', async (req, res) => {
 
         const hashPassword = await bcrypt.hash(password, 10);
         const register = await SQL(`INSERT into users(name,password,email,country,city,website,facebook,instagram,linkedin,github,position,aboutme,image)
-        VALUES ('${name}','${hashPassword}' ,'${email}','${country}','${city}', '${website}','${facebook}','${instagram}','${linkedin}','${github}','${position}','${aboutme}','http://cdn.onlinewebfonts.com/svg/img_568656.png')`)
+        VALUES ('${name}','${hashPassword}' ,'${email}','${country}','${city}', '${website}','${facebook}','${instagram}','${linkedin}','${github}','${position}','${aboutme}','img_568656.png')`)
 
 
         console.log(req.body);

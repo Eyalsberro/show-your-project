@@ -11,6 +11,37 @@
     align-items: center;
 }
 
-.logo{
-    cursor:pointer;
+.logo {
+    cursor: pointer;
+}
+
+.mobilemenu{
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+    
+
+    .mobilemenu {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        align-items: center;
+        padding-top: 20px;
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .insideHeader {
+        display: none;
+    }
+
+    .MuiDrawer-paper {
+        padding-top: 40px;
+        align-items: flex-start;
+    }
+
+    .MuiButtonBase-root{
+        color: black;
+    }
 }

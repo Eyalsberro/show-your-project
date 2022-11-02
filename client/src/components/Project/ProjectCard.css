@@ -2,7 +2,11 @@
     margin-bottom: 15px;
 }
 
-.abouttheproject{
+.profileimage{
+    cursor: pointer;
+}
+
+.abouttheproject {
     white-space: pre-line;
 }
 
@@ -60,11 +64,26 @@
     margin-bottom: 5px;
 }
 
-span > .MuiChip-root {
+span>.MuiChip-root {
     margin-left: 5px;
-    
+
 }
 
-.language{
+.language {
     margin-top: 5px;
+}
+
+@media screen and (max-width: 600px) {
+    .MuiCard-root {
+        width: 350px;
+    }
+
+    .inputComment {
+        width: 100%;
+    }
+
+    .carousel-item {
+        width: 100%;
+        height: auto;
+    }
 }

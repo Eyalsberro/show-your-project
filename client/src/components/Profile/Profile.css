@@ -39,6 +39,7 @@
     border-radius: 15px;
     padding: 30px;
     height: 100%;
+    white-space: pre-line;
 }
 
 .projectarea {
@@ -64,7 +65,7 @@
 }
 
 .btn1 {
-    margin-left: 50px;
+    margin-bottom: 10px;
     font-family: Roboto, sans-serif;
     font-weight: 520;
     font-size: 14px;
@@ -87,4 +88,15 @@
     background-color: #fff;
     color: #0066cc;
     border: solid 2px #0066cc;
+}
+
+@media screen and (max-width: 750px) {
+    .col-sm-4{
+        margin-bottom: 10px;
+    }
+
+    .projectarea{
+        width: 350px;
+    }
+
 }
