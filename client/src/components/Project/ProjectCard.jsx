@@ -9,12 +9,9 @@ import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import ShareIcon from '@mui/icons-material/Share';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import Checkbox from '@mui/material/Checkbox';
@@ -134,6 +131,10 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
     setExpanded(!expanded);
   };
 
+  const emailtab = () => {
+    window.open(`mailto:${projectliked.email}`)
+  };
+
 
   return (
     <div>
@@ -212,13 +213,6 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
             }
           />
 
-
-          {/* <span className='iconbtn' onChange={handleChange}></span>
-          <Checkbox inputProps={{ 'aria-label': 'controlled' }} label="Call me" icon={<ThumbUpOffAltIcon />} checkedIcon={<ThumbUpAltIcon />} />  */}
-
-          {/* <button className='iconbtn' onChange={handleChange}>
-            <ThumbUpOffAltIcon /> Like
-          </button> */}
           <ExpandMore
             expand={expanded}
             onClick={handleExpandClick}
@@ -227,9 +221,7 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
           >
           </ExpandMore>
 
-          {/* <button className='iconbtn'><ModeCommentOutlinedIcon /> Comment</button> */}
-          <button className='iconbtn'><SendOutlinedIcon /> DM</button>
-          <button className='iconbtn'><ShareIcon /> Share</button>
+          <button className='iconbtn' onClick={emailtab}><SendOutlinedIcon /> Email</button>
         </CardActions>
 
         <Collapse in={expanded} timeout="auto" unmountOnExit>

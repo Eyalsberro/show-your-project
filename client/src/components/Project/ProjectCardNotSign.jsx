@@ -10,7 +10,6 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-import ShareIcon from '@mui/icons-material/Share';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
@@ -71,6 +70,10 @@ export default function ProjectCardNotSign({ project }) {
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  const emailtab = () => {
+    window.open(`mailto:${project.email}`)
   };
 
   return (
@@ -158,8 +161,7 @@ export default function ProjectCardNotSign({ project }) {
             aria-label="show more"
           >
           </ExpandMore>
-          <button className='iconbtn'><SendOutlinedIcon /> Send</button>
-          <button className='iconbtn'><ShareIcon /> Share</button>
+          <button className='iconbtn' onClick={emailtab}><SendOutlinedIcon /> Email</button>
         </CardActions>
 
         <Collapse in={expanded} timeout="auto" unmountOnExit>

@@ -49,6 +49,7 @@ router.get('/all', async (req, res) => {
         const projects = await SQL(`SELECT 
         project.*,
         users.name,
+        users.email,
         users.image AS profileimage,
         COUNT(likeapost.project_id) AS LikesToPorject
         FROM
@@ -112,6 +113,7 @@ router.get('/projectliked/:id', async (req, res) => {
         const projectliked = await SQL(`SELECT 
         project.*,
         users.name,
+        users.email,
         users.image AS profileimage,
         COUNT(likeapost.project_id) AS LikesToPorject
         FROM
