@@ -25,7 +25,7 @@ export default function Main() {
   useEffect(() => {
     if (localStorage.id) {
       (async () => {
-        const res = await fetch(`http://52.0.110.158/profile/${userid}`, {
+        const res = await fetch(`http://54.205.248.142/profile/${userid}`, {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
           credentials: "include"
@@ -41,7 +41,7 @@ export default function Main() {
       })();
 
       (async () => {
-        const res = await fetch(`http://52.0.110.158/project/${userid}`, {
+        const res = await fetch(`http://54.205.248.142/project/${userid}`, {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
           credentials: "include"

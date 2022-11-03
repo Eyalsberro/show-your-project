@@ -26,7 +26,7 @@ export default function Login() {
 
   const LoginUser = async (event) => {
     event.preventDefault();
-    const res = await fetch('http://52.0.110.158/user/login', {
+    const res = await fetch('http://54.205.248.142/user/login', {
       method: "post",
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -164,7 +164,7 @@ export default function Login() {
 
 
 //     const LoginUser = async () => {
-//         const res = await fetch('http://52.0.110.158/user/login', {
+//         const res = await fetch('http://54.205.248.142/user/login', {
 //             method: "post",
 //             headers: { 'content-type': 'application/json' },
 //             body: JSON.stringify({ name, password }),

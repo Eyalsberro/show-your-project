@@ -20,7 +20,7 @@ export default function MainPage({ profile }) {
   useEffect(() => {
     if (localStorage.id) {
       (async () => {
-        const res = await fetch(`http://52.0.110.158/project/projectliked/${currUserId}`, {
+        const res = await fetch(`http://54.205.248.142/project/projectliked/${currUserId}`, {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
           credentials: "include"
@@ -37,7 +37,7 @@ export default function MainPage({ profile }) {
     } else {
 
       (async () => {
-        const res = await fetch(`http://52.0.110.158/project/all`, {
+        const res = await fetch(`http://54.205.248.142/project/all`, {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
           credentials: "include"
@@ -57,7 +57,7 @@ export default function MainPage({ profile }) {
   useEffect(() => {
 
     (async () => {
-      const res = await fetch(`http://52.0.110.158/project`, {
+      const res = await fetch(`http://54.205.248.142/project`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
         credentials: "include"

@@ -100,7 +100,7 @@ export default function AddProject() {
     formData.append('user_id', user_id)
 
 
-    const res = await fetch(`http://52.0.110.158/project`, {
+    const res = await fetch(`http://54.205.248.142/project`, {
       method: "post",
       // headers: {mode: 'no-cors'},
       body: formData,

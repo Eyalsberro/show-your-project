@@ -17,7 +17,7 @@ export default function Header() {
   }
 
   const logout = async () => {
-    const res = await fetch('http://52.0.110.158/user/logout', {
+    const res = await fetch('http://54.205.248.142/user/logout', {
       method: "delete",
       credentials: "include"
     })
