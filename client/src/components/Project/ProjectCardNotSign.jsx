@@ -52,7 +52,7 @@ export default function ProjectCardNotSign({ project }) {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`http://54.205.248.142/project/comment/${project.projectid}`, {
+      const res = await fetch(`http://api.eyalsberro.com/project/comment/${project.projectid}`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
         credentials: "include"

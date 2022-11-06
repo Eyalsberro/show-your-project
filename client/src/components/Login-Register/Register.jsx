@@ -42,7 +42,7 @@ export default function Register() {
 
 
   const register = async () => {
-    const res = await fetch('http://54.205.248.142/user/register', {
+    const res = await fetch('http://api.eyalsberro.com/user/register', {
       method: "post",
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ name, email, password, country, city, website, facebook, instagram, linkedin, github, position, aboutme }),

@@ -25,7 +25,7 @@ export default function Main() {
   useEffect(() => {
     if (localStorage.id) {
       (async () => {
-        const res = await fetch(`http://54.205.248.142/profile/${userid}`, {
+        const res = await fetch(`http://api.eyalsberro.com/profile/${userid}`, {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
           credentials: "include"
@@ -34,14 +34,13 @@ export default function Main() {
         if (data.err) {
           alert(data.err)
         } else {
-          console.log(data[0]);
           setProfile(data[0])
           setUpdate(st => !st)
         }
       })();
 
       (async () => {
-        const res = await fetch(`http://54.205.248.142/project/${userid}`, {
+        const res = await fetch(`http://api.eyalsberro.com/project/${userid}`, {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
           credentials: "include"

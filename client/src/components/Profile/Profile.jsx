@@ -37,7 +37,7 @@ export default function Profile() {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`http://54.205.248.142/profile/${userid}`, {
+      const res = await fetch(`http://api.eyalsberro.com/profile/${userid}`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
         credentials: "include"
@@ -51,7 +51,7 @@ export default function Profile() {
     })();
 
     (async () => {
-      const res = await fetch(`http://54.205.248.142/project/${userid}`, {
+      const res = await fetch(`http://api.eyalsberro.com/project/${userid}`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
         credentials: "include"

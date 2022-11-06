@@ -30,7 +30,7 @@ export default function ProfileOfAUser() {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`http://54.205.248.142/profile/${localStorage.projectUid}`, {
+      const res = await fetch(`http://api.eyalsberro.com/profile/${localStorage.projectUid}`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
         credentials: "include"
@@ -46,7 +46,7 @@ export default function ProfileOfAUser() {
     })();
 
     (async () => {
-      const res = await fetch(`http://54.205.248.142/project/${localStorage.projectUid}`, {
+      const res = await fetch(`http://api.eyalsberro.com/project/${localStorage.projectUid}`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
         credentials: "include"

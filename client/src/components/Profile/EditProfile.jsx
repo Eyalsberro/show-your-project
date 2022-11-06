@@ -37,7 +37,7 @@ export default function EditProfile({ profile, projectUser }) {
   const [updaetd, setUpdaetd] = useState(true)
 
   const UpdateGeneralInfo = async () => {
-    const res = await fetch(`http://54.205.248.142/profile/generalinfo/${localStorage.id}`, {
+    const res = await fetch(`http://api.eyalsberro.com/profile/generalinfo/${localStorage.id}`, {
       method: "put",
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ name, email, country, city, position }),
@@ -55,7 +55,7 @@ export default function EditProfile({ profile, projectUser }) {
   }
 
   const UpdateSocial = async (e) => {
-    const res = await fetch(`http://54.205.248.142/profile/social/${localStorage.id}`, {
+    const res = await fetch(`http://api.eyalsberro.com/profile/social/${localStorage.id}`, {
       method: "put",
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ website, facebook, instagram, linkedin, github }),
@@ -72,7 +72,7 @@ export default function EditProfile({ profile, projectUser }) {
   }
 
   const UpdateAboutMe = async () => {
-    const res = await fetch(`http://54.205.248.142/profile/aboutme/${localStorage.id}`, {
+    const res = await fetch(`http://api.eyalsberro.com/profile/aboutme/${localStorage.id}`, {
       method: "put",
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ aboutme }),
@@ -94,7 +94,7 @@ export default function EditProfile({ profile, projectUser }) {
     let formData = new FormData()
     formData.append('image', imgsrc)
 
-    const res = await fetch(`http://54.205.248.142/profile/pic/${localStorage.id}`, {
+    const res = await fetch(`http://api.eyalsberro.com/profile/pic/${localStorage.id}`, {
       method: "post",
       // headers: {mode: 'no-cors'},
       // headers:{'Content-Type': 'multipart/form-data','Access-Control-Allow-Origin':'*'},
