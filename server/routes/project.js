@@ -26,7 +26,7 @@ const s3Client = new S3Client({
     }
 });
 
- 
+
 // GET ALL THE PROJECTS OF DATABASE///
 router.get('/', async (req, res) => {
 
@@ -82,7 +82,7 @@ router.get('/all', async (req, res) => {
                 Bucket: bucketName,
                 Key: project.image1
             }
-            if (project?.image1) {
+            if (project.image1) {
                 project.image1 = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams2), { expiresIn: 3600 });
             }
 
@@ -90,7 +90,7 @@ router.get('/all', async (req, res) => {
                 Bucket: bucketName,
                 Key: project.image2
             }
-            if (project?.image2) {
+            if (project.image2) {
                 project.image2 = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams3), { expiresIn: 3600 });
             }
 
@@ -138,7 +138,7 @@ router.get('/projectliked/:id', async (req, res) => {
                 Bucket: bucketName,
                 Key: project.image
             }
-            if (project?.image) {
+            if (project.image) {
                 project.image = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams1), { expiresIn: 3600 });
             }
 
@@ -146,7 +146,7 @@ router.get('/projectliked/:id', async (req, res) => {
                 Bucket: bucketName,
                 Key: project.image1
             }
-            if (project?.image1) {
+            if (project.image1) {
                 project.image1 = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams2), { expiresIn: 3600 });
             }
 
@@ -154,7 +154,7 @@ router.get('/projectliked/:id', async (req, res) => {
                 Bucket: bucketName,
                 Key: project.image2
             }
-            if (project?.image2) {
+            if (project.image2) {
                 project.image2 = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams3), { expiresIn: 3600 });
             }
 
@@ -213,7 +213,7 @@ router.get('/:user_id', async (req, res) => {
                 Bucket: bucketName,
                 Key: project.image
             }
-            if (project?.image) {
+            if (project.image) {
                 project.image = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams1), { expiresIn: 3600 });
             }
 
@@ -221,7 +221,7 @@ router.get('/:user_id', async (req, res) => {
                 Bucket: bucketName,
                 Key: project.image1
             }
-            if (project?.image1) {
+            if (project.image1) {
                 project.image1 = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams2), { expiresIn: 3600 });
             }
 
@@ -229,7 +229,7 @@ router.get('/:user_id', async (req, res) => {
                 Bucket: bucketName,
                 Key: project.image2
             }
-            if (project?.image2) {
+            if (project.image2) {
                 project.image2 = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams3), { expiresIn: 3600 });
             }
         }
