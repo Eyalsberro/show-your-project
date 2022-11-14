@@ -314,10 +314,10 @@ router.post('/', upload.array('image', 3), async (req, res) => {
         );
 
 
-        if (params[2]?.Key && params[1]?.Key) {
+        if (params[2].Key && params[1].Key) {
             await SQL(`UPDATE project SET image = '${params[0].Key}' ,image1 = '${params[1].Key}' ,image2 = '${params[2].Key}' WHERE projectid = ${projectnum.insertId}`)
             console.log("im params everthing");
-        } else if (params[1]?.Key) {
+        } else if (params[1].Key) {
             await SQL(`UPDATE project SET image = '${params[0].Key}' ,image1 = '${params[1].Key}' ,image2 = 'undefined' WHERE projectid = ${projectnum.insertId}`)
             console.log("im params 1");
         } else {
