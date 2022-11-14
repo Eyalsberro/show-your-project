@@ -26,7 +26,7 @@ const s3Client = new S3Client({
     }
 });
 
-
+ 
 // GET ALL THE PROJECTS OF DATABASE///
 router.get('/', async (req, res) => {
 
