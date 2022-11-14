@@ -74,7 +74,7 @@ router.get('/all', async (req, res) => {
                 Bucket: bucketName,
                 Key: project.image
             }
-            if (project?.image) {
+            if (project.image) {
                 project.image = await getSignedUrl(s3Client, new GetObjectCommand(getObjectParams1), { expiresIn: 3600 });
             }
 
