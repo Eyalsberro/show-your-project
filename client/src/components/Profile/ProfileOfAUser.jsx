@@ -30,7 +30,7 @@ export default function ProfileOfAUser() {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`https://api.showyourproject.online/profile/${localStorage.projectUid}`, {
+      const res = await fetch(`http://localhost:8080/profile/${localStorage.projectUid}`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
         credentials: "include"
@@ -46,7 +46,7 @@ export default function ProfileOfAUser() {
     })();
 
     (async () => {
-      const res = await fetch(`https://api.showyourproject.online/project/${localStorage.projectUid}`, {
+      const res = await fetch(`http://localhost:8080/project/${localStorage.projectUid}`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
         credentials: "include"

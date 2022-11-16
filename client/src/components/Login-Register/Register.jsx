@@ -42,7 +42,7 @@ export default function Register() {
 
 
   const register = async () => {
-    const res = await fetch('https://api.showyourproject.online/user/register', {
+    const res = await fetch('http://localhost:8080/user/register', {
       method: "post",
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ name, email, password, country, city, website, facebook, instagram, linkedin, github, position, aboutme }),

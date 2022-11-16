@@ -33,7 +33,7 @@ export default function MainPage({ profile }) {
   useEffect(() => {
     if (localStorage.id) {
       (async () => {
-        const res = await fetch(`https://api.showyourproject.online/project/projectliked/${currUserId}`, {
+        const res = await fetch(`http://localhost:8080/project/projectliked/${currUserId}`, {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
           credentials: "include"
@@ -46,29 +46,25 @@ export default function MainPage({ profile }) {
         }
       })();
 
-      // (async () => {
-      //   const res = await fetch(`https://api.showyourproject.online/project/getlikelist`, {
-      //     method: 'GET',
-      //     headers: { 'content-type': 'application/json' },
-      //     credentials: "include"
-      //   })
-      //   const data = await res.json();
-      //   if (data.err) {
-      //     alert(data.err)
-      //   } else {
-      //     const items = JSON.parse(localStorage.getItem('items'));
-      //     if (items) {
-      //       setItems(items);
-      //     }
-      //     console.log(data);
-      //   }
-      // })();
+      (async () => {
+        const res = await fetch(`http://localhost:8080/project/getlikelist`, {
+          method: 'GET',
+          headers: { 'content-type': 'application/json' },
+          credentials: "include"
+        })
+        const data = await res.json();
+        if (data.err) {
+          alert(data.err)
+        } else {
+          console.log(data);
+        }
+      })();
 
 
     } else {
 
       (async () => {
-        const res = await fetch(`https://api.showyourproject.online/project/all`, {
+        const res = await fetch(`http://localhost:8080/project/all`, {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
           credentials: "include"
@@ -88,7 +84,7 @@ export default function MainPage({ profile }) {
   useEffect(() => {
 
     (async () => {
-      const res = await fetch(`https://api.showyourproject.online/project`, {
+      const res = await fetch(`http://localhost:8080/project`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
         credentials: "include"

@@ -26,7 +26,7 @@ export default function Login() {
 
   const LoginUser = async (event) => {
     event.preventDefault();
-    const res = await fetch('https://api.showyourproject.online/user/login', {
+    const res = await fetch('http://localhost:8080/user/login', {
       method: "post",
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -164,7 +164,7 @@ export default function Login() {
 
 
 //     const LoginUser = async () => {
-//         const res = await fetch('https://api.showyourproject.online/user/login', {
+//         const res = await fetch('http://localhost:8080/user/login', {
 //             method: "post",
 //             headers: { 'content-type': 'application/json' },
 //             body: JSON.stringify({ name, password }),

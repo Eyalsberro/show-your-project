@@ -25,7 +25,7 @@ export default function Main() {
   useEffect(() => {
     if (localStorage.id) {
       (async () => {
-        const res = await fetch(`https://api.showyourproject.online/profile/${userid}`, {
+        const res = await fetch(`http://localhost:8080/profile/${userid}`, {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
           credentials: "include"
@@ -40,7 +40,7 @@ export default function Main() {
       })();
 
       (async () => {
-        const res = await fetch(`https://api.showyourproject.online/project/${userid}`, {
+        const res = await fetch(`http://localhost:8080/project/${userid}`, {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
           credentials: "include"

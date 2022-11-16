@@ -54,7 +54,7 @@ export default function ProjectCardNotSign({ project }) {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`https://api.showyourproject.online/project/comment/${project.projectid}`, {
+      const res = await fetch(`http://localhost:8080/project/comment/${project.projectid}`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
         credentials: "include"

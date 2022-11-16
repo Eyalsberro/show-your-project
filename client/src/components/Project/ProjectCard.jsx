@@ -65,7 +65,7 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
 
   const likeAndUnliked = async (e) => {
     if (checked === false) {
-      const res = await fetch('https://api.showyourproject.online/project/addlike', {
+      const res = await fetch('http://localhost:8080/project/addlike', {
         method: "post",
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ user_id: localStorage.id, project_id: projectliked.projectid }),
@@ -82,7 +82,7 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
 
     } else {
 
-      const res = await fetch('https://api.showyourproject.online/project/dellike', {
+      const res = await fetch('http://localhost:8080/project/dellike', {
         method: "delete",
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ user_id: localStorage.id, project_id: projectliked.projectid }),
@@ -103,7 +103,7 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`https://api.showyourproject.online/project/comment/${projectliked.projectid}`, {
+      const res = await fetch(`http://localhost:8080/project/comment/${projectliked.projectid}`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
         credentials: "include"
@@ -120,7 +120,7 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
 
 
   const PostAComment = async () => {
-    const res = await fetch(`https://api.showyourproject.online/project/addcomment`, {
+    const res = await fetch(`http://localhost:8080/project/addcomment`, {
       method: "POST",
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ postComment, user_id: localStorage.id, project_id: projectliked.projectid }),
