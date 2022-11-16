@@ -4,7 +4,7 @@ require("dotenv").config()
 
 
 let con;
-let amazondb = false
+let amazondb = true
 
 if (amazondb) {
     con = mysql.createConnection({
