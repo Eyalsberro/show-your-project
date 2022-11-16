@@ -204,8 +204,8 @@ router.get('/comment/:id', async (req, res) => {
 // Get Likes list //
 router.get('/getlikelist', async (req, res) => {
     try {
-        const getlike = await SQL(`SELECT likeapostid,user_id FROM likeapost`)
-        res.status(200).send(getlike)
+        const getlikelist = await SQL(`SELECT likeapostid,user_id FROM likeapost`)
+        res.status(200).send(getlikelist)
     } catch (err) {
         console.log(err);
         return res.sendStatus(500)
