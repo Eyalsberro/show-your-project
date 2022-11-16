@@ -15,12 +15,25 @@ export default function MainPage({ profile }) {
   const [update, setUpdate] = useState(false);
   const [currUserId, setCurrUserId] = useState(localStorage.id);
   const [titleProject, setTitleProject] = useState([]);
+  // const [checked, setChecked] = useState(false);
+
+  // useEffect(() => {
+  //   const itsliked = localStorage.getItem('liked');
+  //   if (itsliked) {
+  //     setChecked(JSON.parse(itsliked))
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   localStorage.liked = JSON.stringify(checked)
+  // }, [checked])
+
 
 
   useEffect(() => {
     if (localStorage.id) {
       (async () => {
-        const res = await fetch(`http://api.eyalsberro.com/project/projectliked/${currUserId}`, {
+        const res = await fetch(`https://api.showyourproject.online/project/projectliked/${currUserId}`, {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
           credentials: "include"
@@ -33,11 +46,29 @@ export default function MainPage({ profile }) {
         }
       })();
 
+      // (async () => {
+      //   const res = await fetch(`https://api.showyourproject.online/project/getlikelist`, {
+      //     method: 'GET',
+      //     headers: { 'content-type': 'application/json' },
+      //     credentials: "include"
+      //   })
+      //   const data = await res.json();
+      //   if (data.err) {
+      //     alert(data.err)
+      //   } else {
+      //     const items = JSON.parse(localStorage.getItem('items'));
+      //     if (items) {
+      //       setItems(items);
+      //     }
+      //     console.log(data);
+      //   }
+      // })();
+
 
     } else {
 
       (async () => {
-        const res = await fetch(`http://api.eyalsberro.com/project/all`, {
+        const res = await fetch(`https://api.showyourproject.online/project/all`, {
           method: 'GET',
           headers: { 'content-type': 'application/json' },
           credentials: "include"
@@ -57,7 +88,7 @@ export default function MainPage({ profile }) {
   useEffect(() => {
 
     (async () => {
-      const res = await fetch(`http://api.eyalsberro.com/project`, {
+      const res = await fetch(`https://api.showyourproject.online/project`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
         credentials: "include"

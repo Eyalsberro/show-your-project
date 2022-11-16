@@ -73,6 +73,10 @@ span>.MuiChip-root {
     margin-top: 5px;
 }
 
+.onphone{
+    display: none;
+}
+
 @media screen and (max-width: 600px) {
     .MuiCard-root {
         width: 350px;
@@ -85,5 +89,9 @@ span>.MuiChip-root {
     .carousel-item {
         width: 100%;
         height: auto;
+    }
+
+    .onphone{
+        display: block;
     }
 }

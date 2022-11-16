@@ -201,6 +201,19 @@ router.get('/comment/:id', async (req, res) => {
 
 });
 
+// Get Likes list //
+router.get('/getlikelist', async (req, res) => {
+    try {
+        const getlike = await SQL(`SELECT likeapostid FROM likeapost`)
+        res.status(200).send(getlike)
+    } catch (err) {
+        console.log(err);
+        return res.sendStatus(500)
+    }
+
+
+});
+
 // GET A SPCIFIC PROJECT BY USER ID///
 router.get('/:user_id', async (req, res) => {
 
@@ -515,7 +528,7 @@ router.post('/addlike', async (req, res) => {
         const addlike = await SQL(`INSERT into likeapost(user_id,project_id,isLike)
         VALUES (${user_id},${project_id},1)`)
 
-        res.send({ msg: "You've like the project" })
+        res.send({ msg: "You've like the project", addlike })
 
     } catch (err) {
         console.log(err);
@@ -529,9 +542,9 @@ router.delete('/dellike', async (req, res) => {
     try {
         const { user_id, project_id } = req.body
 
-        await SQL(`DELETE FROM likeapost WHERE user_id=${user_id} AND project_id= ${project_id} `)
+        const deletelike = await SQL(`DELETE FROM likeapost WHERE user_id=${user_id} AND project_id= ${project_id} `)
 
-        res.send({ msg: "like was deleted" })
+        res.send({ msg: "like was deleted", deletelike })
 
     } catch (err) {
         console.log(err);
@@ -539,6 +552,8 @@ router.delete('/dellike', async (req, res) => {
     }
 
 })
+
+
 
 
 

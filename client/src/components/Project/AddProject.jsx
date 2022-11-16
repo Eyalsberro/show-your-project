@@ -100,7 +100,7 @@ export default function AddProject() {
     formData.append('user_id', user_id)
 
 
-    const res = await fetch(`http://api.eyalsberro.com/project`, {
+    const res = await fetch(`https://api.showyourproject.online/project`, {
       method: "post",
       // headers: {mode: 'no-cors'},
       body: formData,

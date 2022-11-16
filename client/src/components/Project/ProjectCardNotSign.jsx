@@ -30,6 +30,8 @@ export default function ProjectCardNotSign({ project }) {
   const [comment, setComment] = useState([]);
   const [conmmentUpdate, setConmmentUpdate] = useState(false);
   const [expanded, setExpanded] = React.useState(false);
+  const [open, setOpen] = useState(false);
+
 
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -52,7 +54,7 @@ export default function ProjectCardNotSign({ project }) {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`http://api.eyalsberro.com/project/comment/${project.projectid}`, {
+      const res = await fetch(`https://api.showyourproject.online/project/comment/${project.projectid}`, {
         method: 'GET',
         headers: { 'content-type': 'application/json' },
         credentials: "include"
@@ -75,6 +77,14 @@ export default function ProjectCardNotSign({ project }) {
   const emailtab = () => {
     window.open(`mailto:${project.email}`)
   };
+
+
+
+  const handleTooltipClose = () => {
+    setOpen(das => !das);
+  };
+
+
 
   return (
     <div>
@@ -143,15 +153,27 @@ export default function ProjectCardNotSign({ project }) {
         </Carousel>
 
         <CardActions className='iconsproject'>
-          <Tooltip title="You Cant Like The Picture">
 
+          <Tooltip title="You Cant Like The Picture"
+            PopperProps={{
+              disablePortal: true,
+            }}
+            onClose={handleTooltipClose}
+            open={open}
+            disableFocusListener
+            disableHoverListener
+            disableTouchListener
+          >
             <FormControlLabel
               className='iconbtn'
               label={project.LikesToPorject}
+              onClick={handleTooltipClose}
               control={
                 <Checkbox checked={checked} inputProps={{ 'aria-label': 'controlled' }} icon={<ThumbUpOffAltIcon />} checkedIcon={<ThumbUpAltIcon />} />
               }
+
             />
+
           </Tooltip>
 
           <ExpandMore

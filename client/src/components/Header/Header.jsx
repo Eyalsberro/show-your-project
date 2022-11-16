@@ -17,7 +17,7 @@ export default function Header() {
   }
 
   const logout = async () => {
-    const res = await fetch('http://api.eyalsberro.com/user/logout', {
+    const res = await fetch('https://api.showyourproject.online/user/logout', {
       method: "delete",
       credentials: "include"
     })
