@@ -15,7 +15,7 @@ export default function MainPage({ profile }) {
   const [update, setUpdate] = useState(false);
   const [currUserId, setCurrUserId] = useState(localStorage.id);
   const [titleProject, setTitleProject] = useState([]);
-  // const [checked, setChecked] = useState(false);
+  const [getLikedList, setGetLikedList] = useState([]);
 
   // useEffect(() => {
   //   const itsliked = localStorage.getItem('liked');
@@ -43,6 +43,7 @@ export default function MainPage({ profile }) {
           alert(data.err)
         } else {
           setProjectsLiked(data)
+          console.log(data);
         }
       })();
 
@@ -57,6 +58,7 @@ export default function MainPage({ profile }) {
           alert(data.err)
         } else {
           console.log(data);
+          setGetLikedList(data)
         }
       })();
 
@@ -108,7 +110,7 @@ export default function MainPage({ profile }) {
               localStorage.id ?
                 <>
                   {
-                    projectsLiked.map(projectliked => <ProjectCard key={projectliked.projectid} projectliked={projectliked} setUpdate={setUpdate} profile={profile} />)
+                    projectsLiked.map(projectliked => <ProjectCard key={projectliked.projectid} projectliked={projectliked} setUpdate={setUpdate} profile={profile} getLikedList={getLikedList} projectsLiked={projectsLiked} />)
                   }
                 </>
                 :

@@ -154,7 +154,7 @@ export default function ProjectCardNotSign({ project }) {
 
         <CardActions className='iconsproject'>
 
-          <Tooltip title="You Cant Like The Picture"
+          <Tooltip title="You Can't Like The Post"
             PopperProps={{
               disablePortal: true,
             }}

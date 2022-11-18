@@ -48,7 +48,7 @@ export default function EditProfile({ profile, projectUser }) {
       alert(data.err)
     } else {
       document.getElementById("succecd2").innerHTML = data.msg
-      console.log(data);
+      console.log(data.msg);
 
     }
 
@@ -90,7 +90,6 @@ export default function EditProfile({ profile, projectUser }) {
   }
 
   const UpdateProfilePic = async (e) => {
-    // e.preventDefault()
     let formData = new FormData()
     formData.append('image', imgsrc)
 

@@ -25,25 +25,26 @@ import Collapse from '@mui/material/Collapse';
 
 
 
-export default function ProjectCard({ projectliked, setUpdate, profile }) {
+export default function ProjectCard({ projectliked, setUpdate, profile, getLikedList, projectsLiked }) {
 
   const navigate = useNavigate()
-  // const [checked, setChecked] = useState(false);
   const [comment, setComment] = useState([]);
   const [postComment, setPostComment] = useState("");
   const [conmmentUpdate, setConmmentUpdate] = useState(false);
-  // const [liked, setLiked] = useState(false);
   const [checked, setChecked] = useState(false);
+  
 
   useEffect(() => {
-    const itsliked = localStorage.getItem('liked');
+    const itsliked = localStorage.getItem(`${projectliked.projectid}`);
     if (itsliked) {
       setChecked(JSON.parse(itsliked))
     }
   }, []);
 
   useEffect(() => {
-    localStorage.liked = JSON.stringify(checked)
+
+    localStorage.setItem(`${projectliked.projectid}`, JSON.stringify(checked));
+
   }, [checked])
 
   const ExpandMore = styled((props) => {
@@ -62,6 +63,21 @@ export default function ProjectCard({ projectliked, setUpdate, profile }) {
 
   const projectPicture = [projectliked.image, projectliked.image1, projectliked.image2].filter((projimg => projimg !== ""))
   const theLangu = JSON.parse(projectliked.languages).filter((lang => lang !== ""))
+
+  // let existlike = getLikedList.filter(liked => liked.project_id = 2)
+  // let kaka = getLikedList.filter(liked => projectsLiked.includes(liked.project_id))
+  // let kaka = getLikedList.filter(liked => projectsLiked.includes(liked.user_id))
+  // let kaka = projectliked.includes(getLikedList.project_id)
+  // console.log(kaka);
+
+  // useEffect(() => {
+  //   if (kaka) {
+  //     setChecked(true)
+  //   } else {
+
+  //   }
+  // }, [])
+
 
   const likeAndUnliked = async (e) => {
     if (checked === false) {

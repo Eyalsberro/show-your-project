@@ -134,6 +134,7 @@ export default function Register() {
                   <MenuItem value={"Junior Backend"}>Junior Backend</MenuItem>
                   <MenuItem value={"Junior Frontend"}>Junior Frontend</MenuItem>
                   <MenuItem value={"Junior UX"}>Junior UX</MenuItem>
+                  <MenuItem value={"Junior UI"}>Junior UI</MenuItem>
                   <MenuItem value={"Something Else"}>Something Else</MenuItem>
                 </Select>
               </FormControl>
