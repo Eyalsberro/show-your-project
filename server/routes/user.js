@@ -27,7 +27,6 @@ router.post('/login', async (req, res) => {
             return res.status(400).send({ err: "**Wrong Email or/and Password" })
 
         }
-        // res.send({ msg: "Succefull login "})
         req.session.name = user[0].name
         req.session.userid = user[0].userid
         req.session.save();
@@ -64,9 +63,7 @@ router.post('/register', async (req, res) => {
         if (!position) {
             return res.status(400).send({ err: "**Missing Position, all filed are required" })
         }
-        // if (!aboutme) {
-        //     return res.status(400).send({ err: "**Missing About Me, all filed are required" })
-        // }
+
 
 
         const usertaken = await SQL(`SELECT * 
@@ -87,7 +84,7 @@ router.post('/register', async (req, res) => {
 
         const hashPassword = await bcrypt.hash(password, 10);
         const register = await SQL(`INSERT into users(name,password,email,country,city,website,facebook,instagram,linkedin,github,position,aboutme,image)
-        VALUES ('${name}','${hashPassword}' ,'${email}','${country}','${city}', '${website}','${facebook}','${instagram}','${linkedin}','${github}','${position}','${aboutme}','img_568656.png')`)
+        VALUES ('${name}','${hashPassword}' ,'${email}','${country}',"'${city}'", '${website}','${facebook}','${instagram}','${linkedin}','${github}','${position}',"'${aboutme}'",'img_568656.png')`)
 
 
         console.log(req.body);

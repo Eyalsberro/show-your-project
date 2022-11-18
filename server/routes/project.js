@@ -204,7 +204,7 @@ router.get('/comment/:id', async (req, res) => {
 // Get Likes list //
 router.get('/getlikelist', async (req, res) => {
     try {
-        const getlikelists = await SQL(`SELECT likeapostid,user_id FROM likeapost`)
+        const getlikelists = await SQL(`SELECT likeapostid,user_id,project_id FROM likeapost`)
         res.status(200).send(getlikelists)
     } catch (err) {
         console.log(err);
@@ -308,7 +308,7 @@ router.post('/', upload.array('image', 3), async (req, res) => {
         const { title, about_the_project, project_link, languages, databaseName, Framework, user_id } = req.body
 
         const projectnum = await SQL(`INSERT into project(title,about_the_project,project_link,languages,databaseName,Framework,user_id)
-        VALUES('${title}','${about_the_project}','${project_link}','${languages}','${databaseName}','${Framework}',${user_id}) `)
+        VALUES("'${title}'","'${about_the_project}'",'${project_link}','${languages}','${databaseName}','${Framework}',${user_id}) `)
         console.log(projectnum.insertId);
 
         const files = req.files
